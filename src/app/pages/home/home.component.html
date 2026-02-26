@@ -1,0 +1,279 @@
+<app-navbar />
+
+<section class="relative bg-emerald-900 text-white pt-24 pb-32 px-6 overflow-hidden">
+    <div class="max-w-6xl mx-auto relative z-10">
+        <h1 class="text-5xl md:text-7xl font-serif font-bold mb-4">LookLanka</h1>
+        <p class="text-xl md:text-2xl text-emerald-100 max-w-2xl font-light">
+            Explore Sri Lanka without filters. The honest guide to discovering hidden gems and avoiding tourist traps.
+        </p>
+        <button
+            class="mt-8 px-8 py-3 bg-amber-400 text-emerald-900 font-bold rounded-full hover:bg-amber-300 transition-all">
+            Start Your Journey
+        </button>
+    </div>
+
+    <div class="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 bg-emerald-800 rounded-full blur-3xl opacity-50"></div>
+
+    <div class="absolute bottom-0 left-0 w-full overflow-hidden leading-[0] transform translate-y-[1px]">
+        <svg viewBox="0 0 1440 320" preserveAspectRatio="none" class="relative block w-full h-[60px] md:h-[100px]">
+            <path fill="#ffffff"
+                d="M0,192L48,197.3C96,203,192,213,288,229.3C384,245,480,267,576,250.7C672,235,768,181,864,181.3C960,181,1056,235,1152,234.7C1248,235,1344,181,1392,154.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z">
+            </path>
+        </svg>
+    </div>
+</section>
+
+<section class="max-w-6xl mx-auto -mt-20 px-6 relative z-20">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+        <div
+            class="bg-white p-6 rounded-2xl shadow-xl border-l-8 border-l-emerald-500 border border-slate-100 flex flex-col gap-4">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-sm text-slate-500 uppercase font-semibold">Live Weather</p>
+                    @if (weatherData()) {
+                    <h3 class="text-xl font-bold text-slate-800">{{ weatherData().name }}, Sri Lanka</h3>
+                    }
+                </div>
+                <i [class]="weatherData()?.weather?.[0]?.main === 'Rain' ? 'pi pi-cloud-rain' : 'pi pi-sun'"
+                    class="text-emerald-500 text-4xl"></i>
+            </div>
+
+            @if (weatherData()) {
+            <div class="flex items-baseline gap-2">
+                <span class="text-3xl font-bold text-slate-800">{{ weatherData().main.temp | number:'1.0-0' }}°C</span>
+                <span class="text-slate-500 capitalize text-sm">{{ weatherData().weather[0].description }}</span>
+            </div>
+
+            <div class="relative mt-2">
+                <input #cityInput type="text" placeholder="Search city (e.g. Ella, Kandy...)"
+                    (keyup.enter)="searchCity(cityInput.value)"
+                    class="w-full pl-3 pr-10 py-2 text-sm border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all">
+                <button (click)="searchCity(cityInput.value)"
+                    class="absolute right-2 top-1/2 -translate-y-1/2 text-slate-400 hover:text-emerald-600">
+                    <i class="pi pi-search"></i>
+                </button>
+            </div>
+            } @else {
+            <div class="animate-pulse flex flex-col gap-3">
+                <div class="h-6 bg-slate-100 rounded w-1/2"></div>
+                <div class="h-10 bg-slate-100 rounded w-full"></div>
+            </div>
+            }
+        </div>
+
+        <div
+            class="bg-white p-6 rounded-2xl shadow-xl border-l-8 border-l-indigo-500 border border-slate-100 flex items-center justify-between">
+            @if (currencyData()) {
+            <div>
+                <p class="text-sm text-slate-500 uppercase font-semibold">Exchange Rate</p>
+                <h3 class="text-xl font-bold text-slate-800">1 EUR = {{ currencyData() | number:'1.2-2' }} LKR</h3>
+                <p class="text-slate-600 text-sm">Updated in real-time</p>
+            </div>
+            <i class="pi pi-money-bill text-indigo-500 text-4xl"></i>
+            } @else {
+            <p class="text-slate-400 text-sm italic">Loading currency...</p>
+            }
+        </div>
+
+        <div
+            class="bg-white p-6 rounded-2xl shadow-xl border-l-8 border-l-amber-400 border border-slate-100 flex items-center justify-between">
+            <div>
+                <p class="text-sm text-slate-500 uppercase font-semibold">Safety Alert</p>
+                <h3 class="text-xl font-bold text-slate-800">Normal Precautions</h3>
+                <p class="text-slate-600 text-sm">No current restrictions</p>
+            </div>
+            <i class="pi pi-shield text-amber-500 text-4xl"></i>
+        </div>
+
+    </div>
+</section>
+
+<section class="max-w-4xl mx-auto py-20 px-6 text-center">
+    <h2 class="text-3xl font-serif font-bold text-slate-800 mb-6">Why LookLanka?</h2>
+    <p class="text-lg text-slate-600 leading-relaxed">
+        Sri Lanka is a paradise, but navigating "tourist prices" and persistent taxi drivers can be stressful.
+        We provide real data, honest prices, and community alerts to ensure you enjoy only the best of the island.
+    </p>
+</section>
+<section class="py-24 bg-white">
+    <div class="max-w-6xl mx-auto px-6">
+
+        <div class="mb-16">
+            <span
+                class="inline-block px-4 py-1.5 mb-4 rounded-full bg-indigo-100 text-indigo-700 text-xs font-bold uppercase tracking-widest">
+                Women's Travel Guide
+            </span>
+            <h2 class="text-4xl md:text-5xl font-serif font-bold text-slate-900 mb-6">
+                Solo Female <span class="text-indigo-600">Safety Hub</span>
+            </h2>
+            <p class="text-lg text-slate-500 max-w-2xl font-light">
+                Sri Lanka is a magical destination for women traveling alone. We've collected practical tips from our
+                community to help you feel safe at all times.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
+
+            <div
+                class="md:col-span-2 lg:col-span-2 bg-indigo-900 rounded-[3rem] p-10 text-white relative overflow-hidden shadow-xl hover:shadow-2xl transition-all group">
+                <div
+                    class="absolute -top-10 -right-10 w-40 h-40 bg-indigo-500/20 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-700">
+                </div>
+                <div class="relative z-10 h-full flex flex-col justify-between">
+                    <div>
+                        <i class="pi pi-shield text-3xl text-indigo-300 mb-6"></i>
+                        <h3 class="text-2xl font-bold mb-4 italic">Dress with Respect</h3>
+                        <p class="text-indigo-100/80 font-light leading-relaxed">
+                            Dressing modestly (shoulders and knees covered) isn't just for temples. It helps you blend
+                            in
+                            and avoid unwanted attention in markets or on public transport.
+                        </p>
+                    </div>
+                    <div class="mt-8">
+                        <span class="text-xs font-bold uppercase tracking-widest text-indigo-300">Pro Tip: Always carry
+                            a sarong.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div
+                class="md:col-span-1 lg:col-span-1 bg-emerald-50 rounded-[3rem] p-8 border border-emerald-100 flex flex-col justify-between group">
+                <div
+                    class="w-12 h-12 bg-white rounded-2xl shadow-sm flex items-center justify-center mb-6 group-hover:rotate-12 transition-transform">
+                    <i class="pi pi-car text-emerald-600"></i>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold text-slate-800 mb-3">Safe Commute</h3>
+                    <p class="text-sm text-slate-500 font-light">
+                        Always use <strong>PickMe</strong> for evening Tuk-Tuks. Every ride is GPS-tracked and you can
+                        share the trip with a friend.
+                    </p>
+                </div>
+            </div>
+
+            <div class="md:col-span-1 lg:col-span-1 bg-amber-50 rounded-[3rem] p-8 border border-amber-100">
+                <div class="flex items-center gap-4 mb-4">
+                    <div class="w-10 h-10 rounded-full bg-amber-400 flex items-center justify-center text-white">
+                        <i class="pi pi-users"></i>
+                    </div>
+                    <span class="font-bold text-amber-900">Sisterhood</span>
+                </div>
+                <p class="text-sm text-amber-800/80 font-light">
+                    On public buses, try to sit next to other women or families. It's the local norm and discourages
+                    troublemakers.
+                </p>
+            </div>
+
+            <div
+                class="md:col-span-3 lg:col-span-4 bg-slate-900 rounded-[3rem] p-10 flex flex-col md:flex-row items-center justify-between gap-8 group">
+                <div class="text-center md:text-left">
+                    <h3 class="text-2xl font-bold text-white mb-2 italic">Want the complete Survival Guide?</h3>
+                    <p class="text-slate-400 font-light">We have an entire section dedicated to emergency contacts,
+                        blacklists of areas, and health advice.</p>
+                </div>
+                <button routerLink="/safety"
+                    class="px-10 py-5 bg-white text-slate-900 font-bold rounded-2xl hover:bg-indigo-600 hover:text-white transition-all shadow-xl group-hover:scale-105">
+                    Explore Safety Hub <i class="pi pi-arrow-right ml-2"></i>
+                </button>
+            </div>
+
+        </div>
+    </div>
+</section>
+<section class="max-w-6xl mx-auto py-24 px-6">
+    <div class="mb-16">
+        <h2 class="text-4xl md:text-5xl font-serif font-bold text-slate-800">Travel Smart, <span
+                class="text-emerald-600">Stay Safe</span></h2>
+        <p class="text-lg text-slate-500 mt-4 max-w-2xl font-light">
+            From common tourist traps to solo female travel advice: everything you need to know for a worry-free
+            experience.
+        </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
+
+        <div
+            class="md:col-span-2 lg:col-span-2 bg-indigo-900 rounded-[3rem] p-10 text-white relative overflow-hidden shadow-xl group">
+            <div
+                class="absolute -top-10 -right-10 w-40 h-40 bg-indigo-500/20 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-700">
+            </div>
+            <div class="relative z-10 flex flex-col h-full justify-between">
+                <div>
+                    <span
+                        class="px-3 py-1 rounded-full bg-white/10 border border-white/20 text-[10px] font-bold uppercase tracking-widest">Women's
+                        Guide</span>
+                    <h3 class="text-3xl font-serif font-bold mt-6 mb-4 italic">Solo Female Safety</h3>
+                    <p class="text-indigo-100/80 font-light leading-relaxed">
+                        Sri Lanka is incredibly welcoming. Simple tips like sitting near other women on buses or using
+                        the PickMe app for evening rides make all the difference.
+                    </p>
+                </div>
+                <button routerLink="/safety"
+                    class="mt-8 flex items-center gap-2 text-indigo-300 font-bold hover:text-white transition-colors">
+                    Read the full guide <i class="pi pi-arrow-right text-sm"></i>
+                </button>
+            </div>
+        </div>
+
+        <div
+            class="bg-white border border-slate-100 rounded-[2.5rem] p-8 hover:shadow-2xl transition-all border-t-4 border-rose-500 group">
+            <div class="p-3 bg-rose-50 rounded-2xl w-fit mb-6 group-hover:bg-rose-500 transition-colors">
+                <i class="pi pi-map text-rose-500 group-hover:text-white text-xl"></i>
+            </div>
+            <h3 class="text-xl font-bold text-slate-800 mb-3">The "Closed" Temple</h3>
+            <p class="text-sm text-slate-500 leading-relaxed mb-6">Drivers might claim a temple is closed just to take
+                you to high-commission gem shops.</p>
+            <div class="text-[11px] font-bold text-slate-400 uppercase tracking-tighter">
+                <i class="pi pi-info-circle mr-1"></i> Always check the gate yourself
+            </div>
+        </div>
+
+        <div
+            class="bg-white border border-slate-100 rounded-[2.5rem] p-8 hover:shadow-2xl transition-all border-t-4 border-emerald-500 group">
+            <div class="p-3 bg-emerald-50 rounded-2xl w-fit mb-6 group-hover:bg-emerald-500 transition-colors">
+                <i class="pi pi-shield text-emerald-600 group-hover:text-white text-xl"></i>
+            </div>
+            <h3 class="text-xl font-bold text-slate-800 mb-3">Fake "Healers"</h3>
+            <p class="text-sm text-slate-500 leading-relaxed mb-6">Be wary of strangers offering street blessings or
+                "miracle" Ayurvedic herbs.</p>
+            <div class="text-[11px] font-bold text-slate-400 uppercase tracking-tighter">
+                <i class="pi pi-check-circle mr-1"></i> Smile and walk away
+            </div>
+        </div>
+
+        <div
+            class="md:col-span-1 lg:col-span-1 bg-amber-50 rounded-[2.5rem] p-8 border border-amber-100 flex flex-col justify-between">
+            <h3 class="font-bold text-amber-900 mb-2">Coconut Fair Price</h3>
+            <p class="text-sm text-amber-800/70 mb-4">On southern beaches, don't pay 500 LKR for a king coconut.</p>
+            <div
+                class="bg-white/50 py-2 px-4 rounded-xl text-center font-mono font-bold text-amber-600 border border-amber-200">
+                100 - 150 LKR
+            </div>
+        </div>
+
+        <div
+            class="md:col-span-2 lg:col-span-3 bg-gradient-to-br from-emerald-800 to-emerald-950 rounded-[3rem] p-10 relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-8">
+            <div class="absolute -bottom-10 -left-10 w-40 h-40 bg-emerald-700/30 rounded-full blur-3xl"></div>
+
+            <div class="relative z-10 text-center md:text-left">
+                <h3 class="text-2xl md:text-3xl font-serif font-bold text-white mb-2">Ready for a safe trip?</h3>
+                <p class="text-emerald-100 text-sm font-light">Join the community and unlock your interactive travel
+                    map.</p>
+            </div>
+
+            <div class="relative z-10 flex gap-3">
+                <button routerLink="/signin"
+                    class="px-8 py-4 bg-amber-400 text-emerald-950 font-bold rounded-2xl hover:bg-amber-300 transition-all shadow-xl">
+                    Get Started
+                </button>
+                <button routerLink="/safety"
+                    class="px-8 py-4 bg-transparent border border-white/20 text-white font-bold rounded-2xl hover:bg-white/10 transition-all">
+                    Full Safety Hub
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<app-footer />

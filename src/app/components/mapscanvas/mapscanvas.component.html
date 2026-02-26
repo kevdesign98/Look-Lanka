@@ -1,0 +1,16 @@
+<app-navbar />
+<div class="relative w-full h-full rounded-[3rem] overflow-hidden shadow-2xl border-4 border-white">
+
+    <google-map height="100%" width="100%" [center]="center" [zoom]="zoom" [options]="mapOptions">
+
+        @for (m of markers(); track m.id) {
+        <map-advanced-marker *ngFor="let m of markers()" [position]="m.position" [title]="m.name"
+            (mapClick)="addToTrip(m)">
+        </map-advanced-marker>
+        }
+    </google-map>
+
+    <div class="absolute top-8 left-8 z-[1000] ...">
+    </div>
+</div>
+<app-footer />

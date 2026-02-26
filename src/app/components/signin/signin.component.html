@@ -1,0 +1,65 @@
+<div class="min-h-screen flex flex-col md:flex-row bg-slate-50">
+
+    <div class="hidden md:flex md:w-1/2 bg-emerald-900 relative items-center justify-center p-12 overflow-hidden">
+        <div class="absolute inset-0 opacity-40">
+            <img src="https://images.unsplash.com/photo-1580910527739-556eb89f9d65?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                class="w-full h-full object-cover" alt="Sri Lanka Nature">
+        </div>
+        <div class="relative z-10 text-white max-w-md">
+            <h2 class="text-4xl font-serif font-bold mb-6 italic">"The island of serendipity awaits you, safely."</h2>
+            <p class="text-emerald-100 font-light">Log in to unlock your personalized planner and travel without
+                worries.</p>
+        </div>
+    </div>
+
+    <div class="flex-1 flex items-center justify-center p-8 md:p-16">
+        <div class="w-full max-w-md">
+            <div class="mb-10 text-center md:text-left">
+                <h1 class="text-3xl font-bold text-slate-800 mb-2">Welcome on LookLanka!</h1>
+                <p class="text-slate-500">Choose your preferred login method</p>
+            </div>
+
+            <div class="grid grid-cols-1 gap-4 mb-8">
+                <button (click)="signInWithGoogle()"
+                    class="flex items-center justify-center gap-3 w-full py-3 px-4 border border-slate-200 rounded-xl bg-white hover:bg-slate-50 transition-all shadow-sm">
+                    <i class="pi pi-google text-red-500"></i>
+                    <span class="font-semibold text-slate-700">Continue with Google</span>
+                </button>
+
+                <button
+                    class="flex items-center justify-center gap-3 w-full py-3 px-4 border border-slate-200 rounded-xl bg-white hover:bg-slate-50 transition-all shadow-sm">
+                    <i class="pi pi-apple text-slate-900"></i>
+                    <span class="font-semibold text-slate-700">Continue with Apple</span>
+                </button>
+            </div>
+
+            <div class="relative my-8 text-center">
+                <span class="absolute inset-x-0 top-1/2 h-px bg-slate-200"></span>
+                <span class="relative bg-slate-50 px-4 text-sm text-slate-400 uppercase">Or with email</span>
+            </div>
+
+            <div class="space-y-6">
+                <span class="p-fluid">
+                    <div class="field mb-4">
+                        <label class="block text-sm font-medium text-slate-700 mb-1">Email</label>
+                        <input pInputText type="email" placeholder="name@example.com"
+                            class="w-full rounded-xl border-slate-200" />
+                    </div>
+                    <div class="field mb-6">
+                        <label class="block text-sm font-medium text-slate-700 mb-1">Password</label>
+                        <input pInputText type="password" class="w-full rounded-xl border-slate-200" />
+                    </div>
+                </span>
+
+                <button
+                    class="w-full py-4 bg-emerald-600 text-white font-bold rounded-xl hover:bg-emerald-700 transition-all shadow-lg">
+                    Login
+                </button>
+            </div>
+
+            <p class="mt-8 text-center text-sm text-slate-500">
+                Don't have an account? <a href="#" class="text-emerald-600 font-bold hover:underline">Sign up now</a>
+            </p>
+        </div>
+    </div>
+</div>

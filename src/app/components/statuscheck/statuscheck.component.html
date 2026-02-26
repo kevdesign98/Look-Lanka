@@ -1,0 +1,42 @@
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+    <div
+        class="bg-white p-6 rounded-2xl shadow-xl border border-slate-100 flex items-center justify-between group hover:border-emerald-200 transition-all">
+        <div>
+            <p class="text-xs text-slate-400 uppercase font-bold tracking-wider">Meteo {{ weatherData.city }}</p>
+            <h3 class="text-3xl font-black text-slate-800">{{ weatherData.temp }}°C</h3>
+            <p class="text-slate-500 text-sm">{{ weatherData.condition }}</p>
+        </div>
+        <div class="bg-amber-50 p-3 rounded-xl group-hover:scale-110 transition-transform">
+            <i class="pi pi-sun text-amber-500 text-3xl"></i>
+        </div>
+    </div>
+
+    <div
+        class="bg-white p-6 rounded-2xl shadow-xl border border-slate-100 flex items-center justify-between group hover:border-emerald-200 transition-all">
+        <div>
+            <p class="text-xs text-slate-400 uppercase font-bold tracking-wider">Cambio Euro / LKR</p>
+            <h3 class="text-3xl font-black text-slate-800">{{ rateData.rate }}</h3>
+            <div class="flex items-center gap-1">
+                <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                <p class="text-emerald-600 text-xs font-bold uppercase">{{ rateData.trend }}</p>
+            </div>
+        </div>
+        <div class="bg-emerald-50 p-3 rounded-xl group-hover:scale-110 transition-transform">
+            <i class="pi pi-chart-line text-emerald-600 text-3xl"></i>
+        </div>
+    </div>
+
+    <div
+        class="bg-white p-6 rounded-2xl shadow-xl border-l-8 border-l-amber-400 border border-slate-100 flex items-center justify-between group hover:border-amber-200 transition-all">
+        <div>
+            <p class="text-xs text-slate-400 uppercase font-bold tracking-wider">Safety Status</p>
+            <h3 class="text-xl font-bold text-slate-800">Normali Precauzioni</h3>
+            <p class="text-slate-500 text-xs">Aggiornato a oggi</p>
+        </div>
+        <div class="bg-amber-50 p-3 rounded-xl group-hover:rotate-12 transition-transform">
+            <i class="pi pi-shield text-amber-500 text-3xl"></i>
+        </div>
+    </div>
+
+</div>
