@@ -1,0 +1,100 @@
+/* IMPORTANTE: Senza questo la mappa è invisibile */
+@import "https://js.arcgis.com/4.31/@arcgis/core/assets/esri/themes/light/main.css";
+
+:host {
+    display: block;
+    width: 100%;
+    height: 100vh;
+}
+
+.main-container {
+    width: 100%;
+    height: calc(100vh - 80px);
+    /* Sottrae l'altezza della navbar */
+    position: relative;
+    background-color: #f0f2f5;
+    /* Se vedi grigio, il contenitore c'è */
+}
+
+.map-wrapper {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    right: 20px;
+    bottom: 20px;
+    border-radius: 2rem;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    background-color: #e5e7eb;
+    /* Se vedi questo grigio scuro, la mappa non sta caricando i tiles */
+}
+
+/* IL DIV DELLA MAPPA DEVE ESSERE COSI' */
+#mapViewNode {
+    padding: 0;
+    margin: 0;
+    height: 100% !important;
+    width: 100% !important;
+    display: block;
+}
+
+.sidebar-overlay {
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    z-index: 100;
+    width: 320px;
+}
+
+/* Forza la visibilità dei widget ArcGIS */
+.esri-ui-top-right {
+    top: 100px !important;
+    /* Sposta la barra di ricerca sotto la tua Navbar Angular */
+    right: 20px !important;
+    z-index: 50 !important;
+}
+
+.esri-search {
+    width: 280px !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
+    border-radius: 12px !important;
+}
+
+/* .main-container {
+    width: 100%;
+    height: 100vh;
+     display: flex;
+    flex-direction: column;
+    overflow: hidden;
+ }
+
+ .map-wrapper {
+    flex-grow: 1;
+    position: relative;
+    margin: 20px;
+    border-radius: 3rem;
+    overflow: hidden;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    background: #e5e7eb;
+ }
+
+ #mapViewNode {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100% !important;
+    height: 100% !important;
+}
+
+ .sidebar-overlay {
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    z-index: 99;
+    width: 350px;
+    max-height: 80%;
+    pointer-events: auto;
+ }
+ */

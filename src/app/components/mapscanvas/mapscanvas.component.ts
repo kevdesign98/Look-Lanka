@@ -1,59 +1,139 @@
-import { Component, signal } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, OnDestroy, signal, NgZone } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { GoogleMap, MapAdvancedMarker } from '@angular/google-maps';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { FooterComponent } from '../footer/footer.component';
-
-// Definiamo un'interfaccia per i nostri luoghi per avere un codice più pulito
-interface TravelLocation {
-  id: number;
-  name: string;
-  position: google.maps.LatLngLiteral;
-  type: string;
-}
+import Map from '@arcgis/core/Map';
+import MapView from '@arcgis/core/views/MapView';
+import Graphic from '@arcgis/core/Graphic';
+import Point from '@arcgis/core/geometry/Point';
+import SpatialReference from '@arcgis/core/geometry/SpatialReference';
+import Search from '@arcgis/core/widgets/Search';
 
 @Component({
   selector: 'app-mapscanvas',
   standalone: true,
-  imports: [CommonModule, NavbarComponent, FooterComponent, GoogleMap, MapAdvancedMarker],
+  imports: [CommonModule, NavbarComponent, FooterComponent],
   templateUrl: './mapscanvas.component.html',
   styleUrls: ['./mapscanvas.component.css']
 })
-export class MapscanvasComponent {
-  // Configurazione Mappa
-  center: google.maps.LatLngLiteral = { lat: 7.8731, lng: 80.7718 };
-  zoom = 8;
+export class MapscanvasComponent implements OnInit, OnDestroy {
+  @ViewChild('mapViewNode', { static: true }) private mapViewEl!: ElementRef;
+  private view!: MapView;
 
-  // Opzioni della mappa: il mapId è OBBLIGATORIO per gli Advanced Markers
-  mapOptions: google.maps.MapOptions = {
-    mapId: 'DEMO_MAP_ID', // Sostituisci con il tuo Map ID reale dalla Google Cloud Console
-    disableDefaultUI: true,
-    zoomControl: true,
-    clickableIcons: false
-  };
+  constructor(private zone: NgZone) { }
 
-  // Database locale dei Marker (puoi aggiungerne quanti ne vuoi)
-  markers = signal<TravelLocation[]>([
-    { id: 1, name: 'Sigiriya Rock', position: { lat: 7.9570, lng: 80.7603 }, type: 'Culture' },
-    { id: 2, name: 'Nine Arch Bridge', position: { lat: 6.8768, lng: 81.0610 }, type: 'Nature' },
-    { id: 3, name: 'Temple of the Tooth', position: { lat: 7.2936, lng: 80.6413 }, type: 'Spiritual' },
-    { id: 4, name: 'Mirissa Beach', position: { lat: 5.9483, lng: 80.4716 }, type: 'Beach' }
-  ]);
+  selectedLocations = signal<any[]>([]);
 
-  // Signal per gestire i luoghi selezionati dall'utente (la sidebar)
-  selectedLocations = signal<TravelLocation[]>([]);
+  ngOnInit() {
+    this.zone.runOutsideAngular(() => {
+      const map = new Map({
+        basemap: 'topo-vector'
+      });
 
-  // Funzione per aggiungere un luogo all'itinerario
-  addToTrip(location: TravelLocation) {
-    const current = this.selectedLocations();
-    // Evitiamo di aggiungere lo stesso posto due volte
-    if (!current.find(l => l.id === location.id)) {
-      this.selectedLocations.update(list => [...list, location]);
+      this.view = new MapView({
+        container: this.mapViewEl.nativeElement,
+        map: map,
+        center: [80.7718, 7.8731],
+        zoom: 7,
+        resizeAlign: "center",
+        spatialReference: SpatialReference.WebMercator,
+        // FIX PER L'ERRORE TS2322: Usiamo il casting "as any" per bypassare il controllo rigido
+        ui: {
+          components: ["attribution" as any]
+        },
+        constraints: {
+          rotationEnabled: false,
+          minZoom: 6,
+          maxZoom: 15,
+          geometry: {
+            type: "extent",
+            xmin: 78.5, ymin: 4.5, xmax: 83.0, ymax: 11.0,
+            spatialReference: { wkid: 4326 }
+          }
+        }
+      });
+
+      // IMPORTANTE: Aspettiamo che la vista sia pronta prima di aggiungere widget o interazioni
+      this.view.when(() => {
+        this.zone.runOutsideAngular(() => {
+          // Creiamo il widget qui dentro così siamo sicuri che il DOM sia pronto
+          const searchWidget = new Search({
+            view: this.view,
+            allPlaceholder: "Search a place in Sri Lanka",
+            includeDefaultSources: true
+          });
+
+          // Aggiungiamo il widget alla UI
+          this.view.ui.add(searchWidget, "top-right");
+
+          // Inizializziamo le interazioni
+          this.setupInteraction(searchWidget);
+        });
+
+        // Piccolo trucco per forzare il rendering se la mappa sembra "vuota"
+        setTimeout(() => {
+          if (this.view) this.view.tryFatalErrorRecovery();
+        }, 500);
+      });
+    });
+  }
+
+  private setupInteraction(searchWidget: Search) {
+    this.view.on('click', (event) => {
+      this.view.hitTest(event).then((response) => {
+        // Se non becchiamo un marker esistente, aggiungiamo un nuovo punto
+        if (response.results.length === 0) {
+          this.zone.run(() => this.createNewUserMarker(event.mapPoint));
+        }
+      });
+    });
+
+    searchWidget.on("select-result", (event: any) => {
+      this.zone.run(() => {
+        // Prendiamo il nome reale dal risultato della ricerca
+        this.createNewUserMarker(event.result.feature.geometry, event.result.name);
+      });
+    });
+  }
+
+  private createNewUserMarker(point: any, name?: string) {
+    const newLoc = {
+      id: Date.now(),
+      name: name || `Location ${this.selectedLocations().length + 1}`,
+      coords: [point.longitude, point.latitude]
+    };
+
+    const graphic = new Graphic({
+      geometry: point,
+      attributes: newLoc,
+      symbol: {
+        type: 'simple-marker',
+        style: 'diamond',
+        color: [37, 99, 235], // Blu scuro professionale
+        size: 14,
+        outline: { color: [255, 255, 255], width: 2 }
+      } as any
+    });
+
+    this.view.graphics.add(graphic);
+    this.addToTrip(newLoc);
+  }
+
+  addToTrip(loc: any) {
+    this.selectedLocations.update(list => [...list, loc]);
+  }
+
+  removeFromTrip(id: number) {
+    this.selectedLocations.update(list => list.filter(l => l.id !== id));
+    const graphicToRemove = this.view.graphics.toArray().find(g => g.attributes?.id === id);
+    if (graphicToRemove) {
+      this.view.graphics.remove(graphicToRemove);
     }
   }
 
-  // Funzione per rimuovere un luogo dall'itinerario
-  removeFromTrip(locationId: number) {
-    this.selectedLocations.update(list => list.filter(l => l.id !== locationId));
+  ngOnDestroy() {
+    if (this.view) {
+      this.view.destroy();
+    }
   }
 }
