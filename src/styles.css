@@ -1,4 +1,4 @@
-/* You can add global styles to this file, and also import other style files */
+@import "https://js.arcgis.com/5.0/esri/themes/light/main.css";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

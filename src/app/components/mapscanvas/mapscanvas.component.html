@@ -1,62 +1,51 @@
 <app-navbar />
+<div class="flex flex-col w-full h-[calc(100vh-80px)] bg-slate-100 p-0 md:p-6 md:pt-2">
 
-<div class="main-container">
-    <div class="map-wrapper">
+    <div
+        class="relative w-full h-full overflow-hidden rounded-none md:rounded-[40px] shadow-2xl border-none md:border md:border-white/50 bg-slate-200">
 
-        <div #mapViewNode id="mapViewNode"></div>
+        <div #mapViewNode id="mapViewNode" class="w-full h-full"></div>
 
-        <div class="sidebar-overlay">
-            <div class="bg-white/95 backdrop-blur-xl p-8 rounded-[2.5rem] shadow-2xl border border-white">
-                <h2 class="text-2xl font-serif font-bold italic text-slate-800 mb-2">Trip Canvas</h2>
-                <p class="text-slate-500 text-xs mb-6 uppercase tracking-widest">Build your Sri Lanka journey</p>
+        <div class="absolute z-10 
+                inset-x-4 bottom-10           /* Mobile: centrata in basso */
+                md:inset-x-auto md:left-8 md:top-1/2 md:-translate-y-1/2 md:bottom-auto /* Desktop: sinistra */
+                w-auto md:w-72">
 
-                <div class="space-y-4 max-h-[55vh] overflow-y-auto pr-2 custom-scrollbar">
+            <div
+                class="bg-white/90 backdrop-blur-md p-5 md:p-6 rounded-[24px] md:rounded-[32px] shadow-xl border border-white">
+                <h2 class="text-lg md:text-xl font-bold text-slate-800 italic leading-tight">Look Lanka</h2>
+                <p class="text-[9px] md:text-[10px] text-slate-500 mb-3 md:mb-4 uppercase tracking-widest font-bold">
+                    Travel Canvas</p>
+
+                <div
+                    class="space-y-2 md:space-y-3 max-h-[200px] md:max-h-[350px] overflow-y-auto pr-1 custom-scrollbar">
                     @for (loc of selectedLocations(); track loc.id) {
                     <div
-                        class="flex justify-between items-center p-4 bg-slate-50 rounded-2xl border border-slate-100 animate-in fade-in slide-in-from-left duration-300">
-                        <div class="flex flex-col">
-                            <span class="font-bold text-slate-900">{{ loc.name }}</span>
-                            <span class="text-[10px] text-blue-500 font-mono">ID: {{ loc.id.toString().slice(-5)
-                                }}</span>
-                        </div>
-
-                        <button (click)="removeFromTrip(loc.id)"
-                            class="text-slate-400 hover:text-rose-500 hover:scale-125 transition-all duration-200">
+                        class="flex items-center justify-between p-3 bg-white/60 rounded-xl shadow-sm border border-white animate-in">
+                        <span class="text-sm font-semibold text-slate-700">{{ loc.name }}</span>
+                        <button (click)="$event.stopPropagation(); removeFromTrip(loc.id)"
+                            class="text-red-400 hover:text-red-600 p-1">
                             <i class="pi pi-trash"></i>
                         </button>
                     </div>
                     } @empty {
                     <div
-                        class="text-center py-12 border-2 border-dashed border-slate-200 rounded-[2rem] bg-slate-50/50">
-                        <div class="mb-4">
-                            <i class="pi pi-map-marker text-slate-300 text-3xl"></i>
-                        </div>
-                        <p class="text-slate-400 text-sm italic leading-relaxed">
-                            Search for a city or<br>
-                            tap anywhere on the map<br>
-                            to start your trip
+                        class="p-4 md:p-6 border-2 border-dashed border-slate-300 rounded-[20px] md:rounded-[24px] text-center bg-slate-50/30">
+                        <p class="text-[10px] md:text-[11px] text-slate-400 leading-relaxed">
+                            Clicca sui marker verdi per<br>pianificare il viaggio
                         </p>
                     </div>
                     }
                 </div>
 
                 @if (selectedLocations().length > 0) {
-                <div class="mt-6 pt-4 border-t border-slate-100">
-                    <button
-                        class="w-full py-4 bg-blue-600 text-white font-bold rounded-2xl shadow-lg shadow-blue-200 hover:bg-blue-700 hover:-translate-y-1 active:scale-95 transition-all duration-200 flex items-center justify-center gap-2">
-                        <i class="pi pi-check-circle"></i>
-                        Save Itinerary ({{ selectedLocations().length }})
-                    </button>
-
-                    <p class="text-[10px] text-center text-slate-400 mt-3 italic">
-                        The points will be saved to your profile
-                    </p>
-                </div>
+                <button
+                    class="w-full mt-3 md:mt-4 py-3 bg-emerald-500 hover:bg-emerald-600 text-white text-xs md:text-sm font-bold rounded-xl transition-all shadow-lg shadow-emerald-200">
+                    Salva Itinerario
+                </button>
                 }
             </div>
         </div>
-
     </div>
 </div>
-
 <app-footer />

@@ -1,13 +1,12 @@
-import { Component, OnInit, ElementRef, ViewChild, OnDestroy, signal, NgZone } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, NgZone, OnDestroy, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import Map from "@arcgis/core/Map";
+import MapView from "@arcgis/core/views/MapView";
+import esriConfig from "@arcgis/core/config";
+import Graphic from "@arcgis/core/Graphic";
+import Point from "@arcgis/core/geometry/Point";
 import { NavbarComponent } from '../navbar/navbar.component';
 import { FooterComponent } from '../footer/footer.component';
-import Map from '@arcgis/core/Map';
-import MapView from '@arcgis/core/views/MapView';
-import Graphic from '@arcgis/core/Graphic';
-import Point from '@arcgis/core/geometry/Point';
-import SpatialReference from '@arcgis/core/geometry/SpatialReference';
-import Search from '@arcgis/core/widgets/Search';
 
 @Component({
   selector: 'app-mapscanvas',
@@ -19,15 +18,17 @@ import Search from '@arcgis/core/widgets/Search';
 export class MapscanvasComponent implements OnInit, OnDestroy {
   @ViewChild('mapViewNode', { static: true }) private mapViewEl!: ElementRef;
   private view!: MapView;
+  selectedLocations = signal<any[]>([]);
 
   constructor(private zone: NgZone) { }
 
-  selectedLocations = signal<any[]>([]);
-
   ngOnInit() {
+    // Assets allineati alla versione 5.x
+    esriConfig.assetsPath = "https://js.arcgis.com/5.0/@arcgis/core/assets";
+
     this.zone.runOutsideAngular(() => {
       const map = new Map({
-        basemap: 'topo-vector'
+        basemap: "topo-vector"
       });
 
       this.view = new MapView({
@@ -36,99 +37,27 @@ export class MapscanvasComponent implements OnInit, OnDestroy {
         center: [80.7718, 7.8731],
         zoom: 7,
         resizeAlign: "center",
-        spatialReference: SpatialReference.WebMercator,
-        // FIX PER L'ERRORE TS2322: Usiamo il casting "as any" per bypassare il controllo rigido
-        ui: {
-          components: ["attribution" as any]
-        },
-        constraints: {
-          rotationEnabled: false,
-          minZoom: 6,
-          maxZoom: 15,
-          geometry: {
-            type: "extent",
-            xmin: 78.5, ymin: 4.5, xmax: 83.0, ymax: 11.0,
-            spatialReference: { wkid: 4326 }
-          }
-        }
+        ui: { components: [] as any } // UI vuota all'inizio per evitare errori appendChild
       });
 
-      // IMPORTANTE: Aspettiamo che la vista sia pronta prima di aggiungere widget o interazioni
       this.view.when(() => {
-        this.zone.runOutsideAngular(() => {
-          // Creiamo il widget qui dentro così siamo sicuri che il DOM sia pronto
-          const searchWidget = new Search({
-            view: this.view,
-            allPlaceholder: "Search a place in Sri Lanka",
-            includeDefaultSources: true
-          });
+        console.log("BACKUP: Mappa caricata con successo!");
 
-          // Aggiungiamo il widget alla UI
-          this.view.ui.add(searchWidget, "top-right");
-
-          // Inizializziamo le interazioni
-          this.setupInteraction(searchWidget);
+        // Aggiungiamo i componenti UI solo quando il DOM è pronto
+        this.zone.run(() => {
+          this.view.ui.add("zoom", "top-left");
+          this.view.ui.add("attribution", "bottom-right");
         });
-
-        // Piccolo trucco per forzare il rendering se la mappa sembra "vuota"
-        setTimeout(() => {
-          if (this.view) this.view.tryFatalErrorRecovery();
-        }, 500);
       });
     });
-  }
-
-  private setupInteraction(searchWidget: Search) {
-    this.view.on('click', (event) => {
-      this.view.hitTest(event).then((response) => {
-        // Se non becchiamo un marker esistente, aggiungiamo un nuovo punto
-        if (response.results.length === 0) {
-          this.zone.run(() => this.createNewUserMarker(event.mapPoint));
-        }
-      });
-    });
-
-    searchWidget.on("select-result", (event: any) => {
-      this.zone.run(() => {
-        // Prendiamo il nome reale dal risultato della ricerca
-        this.createNewUserMarker(event.result.feature.geometry, event.result.name);
-      });
-    });
-  }
-
-  private createNewUserMarker(point: any, name?: string) {
-    const newLoc = {
-      id: Date.now(),
-      name: name || `Location ${this.selectedLocations().length + 1}`,
-      coords: [point.longitude, point.latitude]
-    };
-
-    const graphic = new Graphic({
-      geometry: point,
-      attributes: newLoc,
-      symbol: {
-        type: 'simple-marker',
-        style: 'diamond',
-        color: [37, 99, 235], // Blu scuro professionale
-        size: 14,
-        outline: { color: [255, 255, 255], width: 2 }
-      } as any
-    });
-
-    this.view.graphics.add(graphic);
-    this.addToTrip(newLoc);
-  }
-
-  addToTrip(loc: any) {
-    this.selectedLocations.update(list => [...list, loc]);
   }
 
   removeFromTrip(id: number) {
-    this.selectedLocations.update(list => list.filter(l => l.id !== id));
-    const graphicToRemove = this.view.graphics.toArray().find(g => g.attributes?.id === id);
-    if (graphicToRemove) {
-      this.view.graphics.remove(graphicToRemove);
-    }
+    // Aggiorniamo il signal filtrando l'array
+    this.selectedLocations.update(locations =>
+      locations.filter(loc => loc.id !== id)
+    );
+    console.log(`Rimosso luogo con ID: ${id}`);
   }
 
   ngOnDestroy() {
