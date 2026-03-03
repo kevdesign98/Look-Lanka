@@ -11,7 +11,7 @@ export class TripService {
     return addDoc(tripsCollection, {
       stops: stops,
       createdAt: serverTimestamp(),
-      title: "Nuovo Viaggio Sri Lanka"
+      title: "New Sri Lanka Trip"
     });
   }
 

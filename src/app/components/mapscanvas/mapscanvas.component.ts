@@ -35,13 +35,13 @@ export class MapscanvasComponent implements OnInit, OnDestroy {
         container: this.mapViewEl.nativeElement,
         map: map,
         center: [80.7718, 7.8731],
-        zoom: 7,
+        zoom: 8,
         ui: { components: [] as any }
       });
 
       this.view.when(() => {
         this.view.on("click", (event) => this.handleMapClick(event));
-        this.zone.run(() => this.view.ui.add("zoom", "top-left"));
+        this.zone.run(() => this.view.ui.add("zoom", "bottom-right"));
       });
     });
   }
@@ -61,14 +61,14 @@ export class MapscanvasComponent implements OnInit, OnDestroy {
         res?.attributes?.Neighborhood ||
         res?.attributes?.Region ||
         res?.address ||
-        `Punto ${lat.toFixed(2)}`;
+        `Destination (${lat.toFixed(2)})`;
 
       // Puliamo il nome: se per caso esce qualcosa con virgole, prendiamo solo la prima parte
       const cleanName = cityName.split(',')[0].trim();
 
       this.addLocationToTrip(event.mapPoint, cleanName);
     } catch (error) {
-      this.addLocationToTrip(event.mapPoint, `Destinazione (${lat.toFixed(2)})`);
+      this.addLocationToTrip(event.mapPoint, `Destination (${lat.toFixed(2)})`);
     }
   }
 
@@ -78,7 +78,7 @@ export class MapscanvasComponent implements OnInit, OnDestroy {
       geometry: point,
       symbol: {
         type: "simple-marker",
-        color: "#10b981", // Un bel verde smeraldo per richiamare lo Sri Lanka!
+        color: "#10b981", // A beautiful emerald green to call Sri Lanka!
         outline: { color: "white", width: 3 },
         size: "14px",
         style: "circle"
@@ -102,7 +102,7 @@ export class MapscanvasComponent implements OnInit, OnDestroy {
     const locations = this.selectedLocations();
 
     if (locations.length === 0) {
-      alert("Seleziona almeno una tappa prima di confermare!");
+      alert("Please select at least one stage before confirming!");
       return;
     }
 
@@ -110,22 +110,22 @@ export class MapscanvasComponent implements OnInit, OnDestroy {
       // 1. Pulizia dati con controllo di sicurezza (evita la pagina bianca se graphic è null)
       const simplifiedStops = locations.map(loc => {
         if (!loc.graphic || !loc.graphic.geometry) {
-          console.warn("Marker senza geometria trovato:", loc);
+          console.warn("Stage without geometry found:", loc);
           return null;
         }
         // ArcGIS 5.x usa oggetti geometry che hanno x/y o latitude/longitude
         const geom = loc.graphic.geometry as any;
         return {
-          name: loc.name || 'Punto senza nome',
+          name: loc.name || 'Destination without name',
           lat: geom.latitude || geom.y,
           lon: geom.longitude || geom.x
         };
       }).filter(stop => stop !== null); // Rimuove eventuali punti corrotti
 
-      if (simplifiedStops.length === 0) throw new Error("Nessuna coordinata valida trovata.");
+      if (simplifiedStops.length === 0) throw new Error("No valid coordinates found.");
 
       // 2. Salvataggio su Firebase
-      console.log("Salvataggio in corso...", simplifiedStops);
+      console.log("Saving itinerary...", simplifiedStops);
       await this.tripService.saveItinerary(simplifiedStops);
 
       // 3. Effetto visivo (opzionale se vai subito in dashboard, ma carino)
@@ -141,8 +141,8 @@ export class MapscanvasComponent implements OnInit, OnDestroy {
       }, 500);
 
     } catch (error) {
-      console.error("Errore critico durante il salvataggio:", error);
-      alert("C'è stato un problema nel salvataggio. Controlla la console.");
+      console.error("Critical error during saving:", error);
+      alert("A problem occurred during saving. Check the console.");
     }
   }
 
