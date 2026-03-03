@@ -49,10 +49,15 @@
                                         Created: {{ trip.createdAt?.toDate() | date:'mediumDate' }}
                                     </p>
                                 </div>
-                                <div
-                                    class="bg-white p-2 rounded-xl shadow-sm text-slate-400 group-hover:text-emerald-500 transition-colors">
-                                    <i class="pi pi-map-marker"></i>
-                                </div>
+
+                                <button (click)="removeTrip(trip.id)"
+                                    class="group/btn p-2 bg-white border border-slate-100 rounded-xl shadow-sm hover:bg-rose-500 hover:border-rose-500 transition-all duration-300">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="2" stroke="currentColor"
+                                        class="w-5 h-5 text-slate-400 group-hover/btn:text-white group-hover/btn:rotate-90 transition-all duration-300">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                    </svg>
+                                </button>
                             </div>
 
                             <div class="flex flex-wrap gap-2">

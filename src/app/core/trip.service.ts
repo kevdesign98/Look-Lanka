@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Firestore, collection, addDoc, serverTimestamp, getDocs, query, orderBy } from '@angular/fire/firestore';
+import { Firestore, collection, addDoc, serverTimestamp, getDocs, query, orderBy, deleteDoc, doc } from '@angular/fire/firestore';
 @Injectable({
   providedIn: 'root'
 })
@@ -25,5 +25,10 @@ export class TripService {
       id: doc.id,
       ...doc.data()
     }));
+  }
+
+  async deleteTrip(tripId: string) {
+    const tripDocRef = doc(this.firestore, 'trips', tripId);
+    return deleteDoc(tripDocRef);
   }
 }
