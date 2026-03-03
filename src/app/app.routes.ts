@@ -8,6 +8,7 @@ import { PlannerComponent } from './pages/planner/planner.component';
 import { SafetyComponent } from './pages/safety/safety.component';
 import { ExploreComponent } from './pages/explore/explore.component';
 import { MapscanvasComponent } from './components/mapscanvas/mapscanvas.component';
+import { DriverListComponent } from './components/driver-list/driver-list.component';
 // import { AuthGuard } from './core/auth.guard';
 
 export const routes: Routes = [
@@ -21,5 +22,6 @@ export const routes: Routes = [
     { path: 'safety', component: SafetyComponent },
     { path: 'explore', component: ExploreComponent },
     { path: 'map-explorer', component: MapscanvasComponent },
+    { path: 'drivers', component: DriverListComponent },
 
 ];

@@ -1,0 +1,94 @@
+<app-navbar />
+
+<section class="relative pt-32 pb-20 bg-slate-50 min-h-screen">
+
+    <div class="max-w-4xl mx-auto px-6">
+
+        <div class="mb-12">
+            <h1 class="text-4xl font-serif font-bold text-slate-900 mb-4">Verified Drivers 🇱🇰</h1>
+            <p class="text-slate-500 font-light max-w-2xl">
+                We have selected only drivers with excellent reviews. Remember to always agree on the price before
+                starting your journey.
+            </p>
+
+        </div>
+
+        <div
+            class="mb-12 bg-rose-50 border border-rose-100 rounded-[2.5rem] p-8 flex flex-col md:flex-row items-center gap-6">
+            <div
+                class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center text-rose-500 shadow-sm shrink-0">
+                <i class="pi pi-shield text-2xl"></i>
+            </div>
+            <div>
+                <h3 class="text-lg font-bold text-rose-900 mb-1">Beware of Scams</h3>
+                <p class="text-rose-700/80 text-sm leading-relaxed">
+                    Be wary of anyone who tells you that your destination is "closed for holidays" or "burnt down". This
+                    is a common tactic to take you to gem or spice shops where they receive commissions. <strong>Never
+                        pay the full amount in advance.</strong>
+                </p>
+            </div>
+        </div>
+
+        <div class="grid gap-6 mb-16">
+            @for (driver of drivers; track driver.name) {
+            <div
+                class="bg-white border border-slate-100 rounded-[2.5rem] p-8 shadow-xl shadow-slate-200/50 hover:scale-[1.01] transition-all group">
+                <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                    <div class="flex items-center gap-6">
+                        <img [src]="driver.image"
+                            class="w-20 h-20 bg-emerald-50 rounded-[1.5rem] p-2 border border-emerald-100 shadow-inner">
+                        <div>
+                            <div class="flex items-center gap-2 mb-1">
+                                <h3 class="text-xl font-bold text-slate-800">{{ driver.name }}</h3>
+                                <span class="flex items-center text-amber-500 text-sm font-bold">
+                                    <i class="pi pi-star-fill mr-1"></i> {{ driver.rating }}
+                                </span>
+                            </div>
+                            <p class="text-emerald-600 font-medium text-sm mb-2">{{ driver.vehicle }}</p>
+                            <div class="flex flex-wrap gap-2">
+                                @for (badge of driver.badges; track badge) {
+                                <span
+                                    class="px-3 py-1 bg-slate-50 text-slate-500 text-[10px] font-bold uppercase tracking-wider rounded-lg border border-slate-100">
+                                    {{ badge }}
+                                </span>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <a [href]="'https://wa.me/' + driver.whatsapp" target="_blank"
+                        class="w-full md:w-auto flex items-center justify-center gap-3 px-8 py-4 bg-emerald-500 text-white font-bold rounded-2xl shadow-lg shadow-emerald-100 hover:bg-emerald-600 transition-all">
+                        <i class="pi pi-whatsapp text-xl"></i>
+                        WhatsApp
+                    </a>
+                </div>
+            </div>
+            }
+        </div>
+
+        <div class="bg-slate-900 rounded-[3rem] p-10 text-white shadow-2xl relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-64 h-64 bg-emerald-500/10 rounded-full blur-[80px]"></div>
+
+            <div class="relative z-10 text-center md:text-left">
+                <h3 class="text-2xl font-bold mb-4">Short trips in the city?</h3>
+                <p class="text-slate-400 mb-8 max-w-md">
+                    To get around Colombo, Kandy or urban areas, use the official apps to avoid negotiating with every
+                    single TukTuk. <strong>PickMe</strong> is the most reliable for TukTuks.
+                </p>
+
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="https://pickme.lk/" target="_blank"
+                        class="flex-1 bg-white text-slate-900 px-6 py-4 rounded-2xl font-bold flex items-center justify-center gap-2 hover:bg-slate-100 transition-all">
+                        Download PickMe
+                    </a>
+                    <a href="https://www.uber.com/lk/en/" target="_blank"
+                        class="flex-1 bg-slate-800 text-white border border-slate-700 px-6 py-4 rounded-2xl font-bold flex items-center justify-center gap-2 hover:bg-slate-700 transition-all">
+                        Download Uber
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<app-footer />

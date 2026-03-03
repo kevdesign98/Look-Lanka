@@ -89,44 +89,62 @@
                 </div>
             </div>
 
-            <div class="space-y-8">
+            <div class="space-y-6">
                 <div class="bg-gradient-to-br from-slate-800 to-slate-900 rounded-[3rem] p-8 text-white shadow-2xl">
                     <h3 class="text-xl font-bold mb-4">Verified Drivers</h3>
-                    <p class="text-slate-400 text-sm mb-6">Access our private list of honest drivers with fixed rates.
-                    </p>
+                    <p class="text-slate-400 text-sm mb-6 font-light">Access our private list of honest drivers with
+                        fixed rates.</p>
                     <a routerLink="/drivers"
-                        class="inline-block px-8 py-4 bg-emerald-600 text-white font-bold rounded-2xl hover:bg-emerald-500 transition-all">
+                        class="inline-block w-full text-center px-8 py-4 bg-emerald-600 text-white font-bold rounded-2xl hover:bg-emerald-500 transition-all shadow-lg shadow-emerald-900/20">
                         View List
                     </a>
                 </div>
 
-                <div class="bg-white border border-slate-100 rounded-[3rem] p-8">
-                    <h3 class="text-lg font-bold text-slate-800 mb-6">Account Settings</h3>
-                    <div class="space-y-4">
-                        <a routerLink="/profile"
-                            class="w-full flex items-center justify-between p-4 bg-slate-50 rounded-2xl text-slate-600 hover:bg-slate-100 transition-all">
-                            <span>Edit Profile</span>
-                            <i class="pi pi-user"></i>
-                        </a>
-                        <button (click)="logout()"
-                            class="w-full flex items-center justify-between p-4 bg-rose-50 rounded-2xl text-rose-600 hover:bg-rose-100 transition-all">
-                            <span class="font-bold">Log Out</span>
-                            <i class="pi pi-sign-out"></i>
-                        </button>
+                <div
+                    class="bg-white border border-slate-100 rounded-[3rem] p-8 shadow-xl shadow-slate-200/50 group hover:scale-[1.02] transition-all">
+                    <div
+                        class="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center text-blue-500 mb-6 group-hover:bg-blue-500 group-hover:text-white transition-all">
+                        <i class="pi pi-directions text-xl"></i>
                     </div>
+                    <h3 class="text-xl font-bold text-slate-800 mb-2">Trains</h3>
+                    <p class="text-slate-500 text-xs font-light mb-6">Book seats for the Kandy-Ella scenic route 30 days
+                        in advance.</p>
+                    <a href="https://seatreservation.railway.gov.lk/" target="_blank"
+                        class="text-blue-500 font-bold text-sm flex items-center gap-2 hover:underline">
+                        Check Schedules <i class="pi pi-arrow-right text-[10px]"></i>
+                    </a>
                 </div>
+
+                <div
+                    class="bg-white border border-slate-100 rounded-[3rem] p-8 shadow-xl shadow-slate-200/50 group hover:scale-[1.02] transition-all">
+                    <div
+                        class="w-12 h-12 bg-amber-50 rounded-2xl flex items-center justify-center text-amber-500 mb-6 group-hover:bg-amber-500 group-hover:text-white transition-all">
+                        <i class="pi pi-map-marker text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-800 mb-2">Bus Finder</h3>
+                    <p class="text-slate-500 text-xs font-light mb-6">Fastest way between cities. Pay directly on board.
+                    </p>
+                    <a href="https://www.ntc.gov.lk/" target="_blank"
+                        class="text-amber-500 font-bold text-sm flex items-center gap-2 hover:underline">
+                        View Routes <i class="pi pi-arrow-right text-[10px]"></i>
+                    </a>
+                </div>
+
+
             </div>
         </div>
     </div>
 </section>
+
 @if (isModalOpen()) {
 <div class="fixed inset-0 z-[100] flex items-center justify-center p-4">
     <div class="absolute inset-0 bg-slate-900/40 backdrop-blur-md" (click)="closeModal()"></div>
 
     <div
         class="relative bg-white rounded-[2.5rem] p-8 max-w-sm w-full shadow-2xl scale-in-center border border-slate-100">
-        <div class="w-16 h-16 bg-rose-50 rounded-2xl flex items-center justify-center text-rose-500 mb-6">
-            <i class="pi pi-exclamation-triangle text-2xl">!</i>
+        <div
+            class="w-16 h-16 bg-rose-50 rounded-2xl flex items-center justify-center text-rose-500 mb-6 font-bold text-2xl">
+            !
         </div>
 
         <h3 class="text-2xl font-bold text-slate-800 mb-2">Are you sure?</h3>
