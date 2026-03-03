@@ -1,47 +1,52 @@
 <app-navbar />
 <div class="flex flex-col w-full h-[calc(100vh-80px)] bg-slate-100 p-0 md:p-6 md:pt-2">
-
-    <div
-        class="relative w-full h-full overflow-hidden rounded-none md:rounded-[40px] shadow-2xl border-none md:border md:border-white/50 bg-slate-200">
+    <div class="relative w-full h-full overflow-hidden rounded-none md:rounded-[40px] shadow-2xl bg-slate-200">
 
         <div #mapViewNode id="mapViewNode" class="w-full h-full"></div>
 
-        <div class="absolute z-10 
-                inset-x-4 bottom-10           /* Mobile: centrata in basso */
-                md:inset-x-auto md:left-8 md:top-1/2 md:-translate-y-1/2 md:bottom-auto /* Desktop: sinistra */
-                w-auto md:w-72">
+        <div
+            class="absolute z-10 inset-x-4 bottom-10 md:inset-x-auto md:left-8 md:top-1/2 md:-translate-y-1/2 w-auto md:w-80">
+            <div class="bg-white/90 backdrop-blur-xl p-6 rounded-[32px] shadow-2xl border border-white/50">
+                <div class="flex items-center justify-between mb-4">
+                    <div>
+                        <h2 class="text-xl font-bold text-slate-800 italic leading-tight">Look Lanka</h2>
+                        <p class="text-[10px] text-emerald-600 uppercase tracking-widest font-bold">Il tuo Itinerario
+                        </p>
+                    </div>
+                    <span class="bg-emerald-100 text-emerald-700 text-[10px] px-2 py-1 rounded-full font-bold">
+                        {{ selectedLocations().length }} tappe
+                    </span>
+                </div>
 
-            <div
-                class="bg-white/90 backdrop-blur-md p-5 md:p-6 rounded-[24px] md:rounded-[32px] shadow-xl border border-white">
-                <h2 class="text-lg md:text-xl font-bold text-slate-800 italic leading-tight">Look Lanka</h2>
-                <p class="text-[9px] md:text-[10px] text-slate-500 mb-3 md:mb-4 uppercase tracking-widest font-bold">
-                    Travel Canvas</p>
-
-                <div
-                    class="space-y-2 md:space-y-3 max-h-[200px] md:max-h-[350px] overflow-y-auto pr-1 custom-scrollbar">
+                <div class="space-y-2 max-h-[300px] overflow-y-auto pr-1 custom-scrollbar">
                     @for (loc of selectedLocations(); track loc.id) {
                     <div
-                        class="flex items-center justify-between p-3 bg-white/60 rounded-xl shadow-sm border border-white animate-in">
-                        <span class="text-sm font-semibold text-slate-700">{{ loc.name }}</span>
-                        <button (click)="$event.stopPropagation(); removeFromTrip(loc.id)"
-                            class="text-red-400 hover:text-red-600 p-1">
-                            <i class="pi pi-trash"></i>
+                        class="group flex items-center justify-between p-3 bg-white/70 hover:bg-white rounded-2xl shadow-sm border border-white/50 transition-all animate-in">
+                        <div class="flex flex-col overflow-hidden mr-2">
+                            <span class="text-xs font-bold text-slate-700 truncate">{{ loc.name }}</span>
+                            <span class="text-[9px] text-slate-400">Tappa confermata</span>
+                        </div>
+
+                        <button (click)="removeFromTrip(loc.id)"
+                            class="flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-xl bg-red-50 text-red-500 hover:bg-red-500 hover:text-white transition-all font-bold">
+                            &times;
                         </button>
                     </div>
                     } @empty {
-                    <div
-                        class="p-4 md:p-6 border-2 border-dashed border-slate-300 rounded-[20px] md:rounded-[24px] text-center bg-slate-50/30">
-                        <p class="text-[10px] md:text-[11px] text-slate-400 leading-relaxed">
-                            Clicca sui marker verdi per<br>pianificare il viaggio
+                    <div class="p-8 border-2 border-dashed border-slate-300 rounded-[24px] text-center bg-slate-50/50">
+                        <i class="pi pi-map-marker text-slate-300 mb-2 block text-xl"></i>
+                        <p class="text-[11px] text-slate-400 leading-relaxed font-medium">
+                            Clicca sulla mappa per<br>aggiungere una destinazione
                         </p>
                     </div>
                     }
                 </div>
 
                 @if (selectedLocations().length > 0) {
-                <button
-                    class="w-full mt-3 md:mt-4 py-3 bg-emerald-500 hover:bg-emerald-600 text-white text-xs md:text-sm font-bold rounded-xl transition-all shadow-lg shadow-emerald-200">
-                    Salva Itinerario
+                <button (click)="confirmTrip()"
+                    class="w-full mt-5 py-4 bg-slate-900 hover:bg-emerald-600 text-white text-xs font-bold rounded-2xl transition-all shadow-xl active:scale-95 flex items-center justify-center gap-2 group">
+                    <i class="pi pi-check-circle group-hover:scale-110 transition-transform"></i>
+                    CONFERMA VIAGGIO
                 </button>
                 }
             </div>

@@ -15,7 +15,7 @@
                 </div>
             </div>
 
-            <a routerLink="/"
+            <a routerLink="/map-explorer"
                 class="px-8 py-4 bg-emerald-600 text-white font-bold rounded-2xl shadow-lg shadow-emerald-200 hover:scale-105 transition-all">
                 + Create New Plan
             </a>
@@ -25,17 +25,62 @@
 
             <div class="lg:col-span-2 space-y-8">
                 <div class="bg-white border border-slate-100 rounded-[3rem] p-10 shadow-xl shadow-slate-200/50">
-                    <h2 class="text-2xl font-bold text-slate-800 mb-6">Current Itinerary</h2>
+                    <h2 class="text-2xl font-bold text-slate-800 mb-6">Your Saved Itineraries</h2>
 
+                    @if (isLoading()) {
+                    <div class="py-12 text-center animate-pulse">
+                        <i class="pi pi-spin pi-spinner text-emerald-500 text-3xl"></i>
+                        <p class="mt-4 text-slate-400">Fetching your adventures...</p>
+                    </div>
+                    } @else {
+                    @if (trips().length > 0) {
+                    <div class="space-y-6">
+                        @for (trip of trips(); track trip.id) {
+                        <div
+                            class="p-6 bg-slate-50 rounded-[2rem] border border-slate-100 hover:border-emerald-200 transition-all group">
+                            <div class="flex justify-between items-start mb-4">
+                                <div>
+                                    <span
+                                        class="text-xs font-bold text-emerald-600 uppercase tracking-widest">Itinerary</span>
+                                    <h3 class="text-lg font-bold text-slate-800">
+                                        Trip to {{ trip.stops[0]?.name }} & More
+                                    </h3>
+                                    <p class="text-xs text-slate-400">
+                                        Created: {{ trip.createdAt?.toDate() | date:'mediumDate' }}
+                                    </p>
+                                </div>
+                                <div
+                                    class="bg-white p-2 rounded-xl shadow-sm text-slate-400 group-hover:text-emerald-500 transition-colors">
+                                    <i class="pi pi-map-marker"></i>
+                                </div>
+                            </div>
+
+                            <div class="flex flex-wrap gap-2">
+                                @for (stop of trip.stops; track $index) {
+                                <span
+                                    class="px-4 py-2 bg-white border border-slate-100 rounded-xl text-sm text-slate-600 flex items-center gap-2 shadow-sm">
+                                    <span class="w-2 h-2 bg-emerald-400 rounded-full"></span>
+                                    {{ stop.name }}
+                                </span>
+                                }
+                            </div>
+                        </div>
+                        }
+                    </div>
+                    } @else {
                     <div class="py-12 text-center">
                         <div
                             class="w-20 h-20 bg-slate-50 rounded-full flex items-center justify-center mx-auto mb-4 text-slate-300">
                             <i class="pi pi-map text-3xl"></i>
                         </div>
                         <p class="text-slate-400 font-medium">No trips planned yet.</p>
-                        <a routerLink="/map-explorer" class="mt-4 text-emerald-600 font-bold hover:underline">Browse
-                            Destinations</a>
+                        <a routerLink="/map-explorer"
+                            class="mt-4 inline-block text-emerald-600 font-bold hover:underline">
+                            Browse Destinations
+                        </a>
                     </div>
+                    }
+                    }
                 </div>
             </div>
 
@@ -44,7 +89,8 @@
                     <h3 class="text-xl font-bold mb-4">Verified Drivers</h3>
                     <p class="text-slate-400 text-sm mb-6">Access our private list of honest drivers with fixed rates.
                     </p>
-                    <a routerLink="/drivers" class="px-8 py-4 bg-emerald-600 text-white font-bold rounded-2xl">
+                    <a routerLink="/drivers"
+                        class="inline-block px-8 py-4 bg-emerald-600 text-white font-bold rounded-2xl hover:bg-emerald-500 transition-all">
                         View List
                     </a>
                 </div>
@@ -57,11 +103,11 @@
                             <span>Edit Profile</span>
                             <i class="pi pi-user"></i>
                         </a>
-                        <a (click)="logout()"
+                        <button (click)="logout()"
                             class="w-full flex items-center justify-between p-4 bg-rose-50 rounded-2xl text-rose-600 hover:bg-rose-100 transition-all">
                             <span class="font-bold">Log Out</span>
                             <i class="pi pi-sign-out"></i>
-                        </a>
+                        </button>
                     </div>
                 </div>
             </div>
