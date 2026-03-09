@@ -3,12 +3,13 @@ import { NavbarComponent } from "../../components/navbar/navbar.component";
 import { FooterComponent } from '../../components/footer/footer.component';
 import { CommonModule } from '@angular/common';
 import { DataService } from '../../core/data.service';
-import { RouterLink } from "@angular/router";
+import { FormsModule } from '@angular/forms';
+import { CarouselModule } from 'primeng/carousel';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [NavbarComponent, FooterComponent, CommonModule, RouterLink],
+  imports: [NavbarComponent, FooterComponent, CommonModule, FormsModule, CarouselModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
@@ -30,7 +31,6 @@ export class HomeComponent implements OnInit {
     })
   }
 
-  // Aggiungi un metodo nel tuo HomeComponent
   searchCity(city: string) {
     if (!city) return;
 
@@ -39,14 +39,9 @@ export class HomeComponent implements OnInit {
         this.weatherData.set(res);
       },
       error: (err) => {
-        console.error('Città non trovata', err);
-        // Opzionale: potresti mostrare un messaggio di errore all'utente
+        console.error('City not found', err);
       }
     });
-  }
-
-  constructor() {
-
   }
 
 

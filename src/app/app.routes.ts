@@ -10,6 +10,7 @@ import { ExploreComponent } from './pages/explore/explore.component';
 import { MapscanvasComponent } from './components/mapscanvas/mapscanvas.component';
 import { DriverListComponent } from './components/driver-list/driver-list.component';
 // import { AuthGuard } from './core/auth.guard';
+import { ProfileComponent } from './components/profile/profile.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -23,5 +24,6 @@ export const routes: Routes = [
     { path: 'explore', component: ExploreComponent },
     { path: 'map-explorer', component: MapscanvasComponent },
     { path: 'drivers', component: DriverListComponent },
+    { path: 'profile', component: ProfileComponent },
 
 ];

@@ -7,6 +7,7 @@ import { environment } from '../environments/environments';
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { provideAuth, getAuth } from '@angular/fire/auth';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+import { provideServiceWorker } from '@angular/service-worker';
 
 const firebaseConfig = {
   apiKey: "AIzaSyCd6vJmH3GtEAi4u_Csi3OFDSPbRf0VtiQ",
@@ -25,6 +26,9 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideHttpClient(),
     provideFirebaseApp(() => initializeApp(environment.firebase)),
-    provideAuth(() => getAuth()), provideFirestore(() => getFirestore()), provideHttpClient()
+    provideAuth(() => getAuth()), provideFirestore(() => getFirestore()), provideHttpClient(), provideServiceWorker('ngsw-worker.js', {
+      enabled: !isDevMode(),
+      registrationStrategy: 'registerWhenStable:30000'
+    })
   ]
 };

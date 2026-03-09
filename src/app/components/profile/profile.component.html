@@ -1,0 +1,101 @@
+<app-navbar />
+
+<section class="relative pt-32 pb-20 bg-slate-50 min-h-screen overflow-hidden">
+    <div class="absolute top-0 -right-20 w-96 h-96 bg-emerald-100 rounded-full blur-[120px] opacity-40"></div>
+
+    <div class="max-w-6xl mx-auto px-6 relative z-10">
+        <h1 class="text-4xl font-serif font-bold text-slate-900 mb-12">Travel Profile</h1>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+            <div
+                class="md:col-span-2 bg-white rounded-[3rem] p-10 shadow-xl shadow-slate-200/50 border border-slate-100 flex flex-col md:flex-row items-center gap-8">
+                <img [src]="authService.currentUser()?.photoURL"
+                    class="w-32 h-32 rounded-[2.5rem] border-4 border-white shadow-2xl rotate-2">
+                <div class="text-center md:text-left">
+                    <h2 class="text-3xl font-bold text-slate-800">{{ authService.currentUser()?.displayName }}</h2>
+                    <p class="text-slate-500 mb-6">{{ authService.currentUser()?.email }}</p>
+                    <div class="flex gap-3 justify-center md:justify-start">
+                        <span
+                            class="px-4 py-2 bg-emerald-50 text-emerald-600 rounded-xl text-xs font-bold uppercase tracking-wider">Verified
+                            Traveler</span>
+                    </div>
+                </div>
+            </div>
+
+            <div
+                class="bg-slate-900 rounded-[3rem] p-8 text-white shadow-2xl flex flex-col justify-between relative overflow-hidden">
+                <div class="relative z-10">
+                    <h3 class="text-xl font-bold mb-2">Look Lanka App</h3>
+                    <p class="text-slate-400 text-sm font-light">Add to home screen for better experience.</p>
+                </div>
+                <button (click)="installPWA()"
+                    class="relative z-10 mt-6 w-full py-4 bg-emerald-500 text-white font-bold rounded-2xl hover:bg-emerald-400 transition-all shadow-lg shadow-emerald-900/40">
+                    Install App
+                </button>
+            </div>
+
+            <div
+                class="bg-white rounded-[3rem] p-8 shadow-xl shadow-slate-200/50 border border-slate-100 group hover:scale-[1.02] transition-all">
+                <div
+                    class="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center text-blue-500 mb-6 group-hover:bg-blue-500 group-hover:text-white transition-all">
+                    <i class="pi pi-directions"></i>
+                </div>
+                <h3 class="text-xl font-bold text-slate-800 mb-2">Trains</h3>
+                <p class="text-slate-500 text-xs mb-6">Book the scenic Kandy-Ella route.</p>
+                <a href="https://seatreservation.railway.gov.lk/" target="_blank"
+                    class="text-blue-500 font-bold text-sm">Check Schedules →</a>
+            </div>
+
+            <div
+                class="bg-white rounded-[3rem] p-8 shadow-xl shadow-slate-200/50 border border-slate-100 group hover:scale-[1.02] transition-all">
+                <div
+                    class="w-12 h-12 bg-amber-50 rounded-2xl flex items-center justify-center text-amber-500 mb-6 group-hover:bg-amber-500 group-hover:text-white transition-all">
+                    <i class="pi pi-map-marker"></i>
+                </div>
+                <h3 class="text-xl font-bold text-slate-800 mb-2">Buses</h3>
+                <p class="text-slate-500 text-xs mb-6">Explore local routes across the island.</p>
+                <a href="https://www.ntc.gov.lk/" target="_blank" class="text-amber-500 font-bold text-sm">View Routes
+                    →</a>
+            </div>
+
+            <div class="bg-white rounded-[3rem] p-8 shadow-xl shadow-slate-200/50 border border-slate-100">
+                <h3 class="text-xl font-bold text-slate-800 mb-6">Quick Converter</h3>
+
+                <div class="relative mb-6">
+                    <label class="text-[10px] uppercase font-bold text-slate-400 ml-4 mb-1 block">Amount in LKR
+                        (Rupie)</label>
+                    <div class="relative">
+                        <input type="number" (input)="onAmountChange($event)" placeholder="e.g. 5000"
+                            class="w-full p-6 bg-slate-50 border-2 border-transparent focus:border-emerald-500 rounded-[2rem] text-2xl font-bold text-slate-800 transition-all outline-none">
+                        <span class="absolute right-6 top-1/2 -translate-y-1/2 text-slate-400 font-bold">LKR</span>
+                    </div>
+                </div>
+
+                <div class="p-6 bg-emerald-50 rounded-[2rem] border border-emerald-100 mb-8 text-center">
+                    <p class="text-xs text-emerald-600 font-bold uppercase tracking-widest mb-1">Estimated Cost</p>
+                    <h2 class="text-4xl font-black text-emerald-700">
+                        {{ selectedCurrency() === 'EUR' ? '€' :
+                        selectedCurrency() === 'USD' ? '$' :
+                        selectedCurrency() === 'GBP' ? '£' : 'Rs' }}
+                        {{ convertedAmount() }}
+                    </h2>
+                </div>
+
+                <div class="flex justify-between gap-2">
+                    @for (curr of currencies; track curr.code) {
+                    <button (click)="updateCurrency(curr.code)"
+                        [class]="selectedCurrency() === curr.code ? 'bg-emerald-600 text-white shadow-lg' : 'bg-slate-100 text-slate-400'"
+                        class="flex-1 py-3 rounded-xl text-xs font-bold transition-all uppercase">
+                        {{ curr.code }}
+                    </button>
+                    }
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+<app-footer />
