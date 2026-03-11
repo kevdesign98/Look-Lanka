@@ -1,4 +1,4 @@
-<nav class="fixed top-4 left-0 right-0 z-50 mx-auto max-w-6xl px-4">
+<!-- <nav class="fixed top-4 left-0 right-0 z-50 mx-auto max-w-6xl px-4">
     <div
         class="flex items-center justify-between rounded-2xl border border-white/20 bg-white/10 p-3 shadow-lg backdrop-blur-md">
 
@@ -104,4 +104,124 @@
             }
         </div>
     </div>
+</nav> -->
+
+<nav class="ll-navbar">
+    <div class="ll-navbar-inner">
+
+        <!-- ── Logo ── -->
+        <a routerLink="/home" class="ll-logo">
+            <div class="ll-logo-icon-wrap">
+                <span class="ll-logo-leaf">🌿</span>
+            </div>
+            <span class="ll-logo-text">LookLanka</span>
+        </a>
+
+        <!-- ── Desktop links ── -->
+        <div class="ll-nav-links">
+            @for (link of navLinks(); track link.path) {
+            <a [routerLink]="link.path" routerLinkActive="ll-nav-link--active" [routerLinkActiveOptions]="{exact: true}"
+                class="ll-nav-link">
+                {{ link.label }}
+            </a>
+            }
+        </div>
+
+        <!-- ── Right side ── -->
+        <div class="ll-nav-right">
+
+            @if (authService.currentUser(); as user) {
+
+            <!-- Avatar + dropdown -->
+            <div class="ll-avatar-wrap">
+                <button (click)="toggleProfileDropdown()" class="ll-avatar-btn">
+                    <img [src]="user.photoURL" alt="avatar" class="ll-avatar-img" />
+                    <span class="ll-avatar-dot"></span>
+                </button>
+
+                @if (isProfileDropdownOpen()) {
+                <div class="ll-dropdown">
+                    <!-- User info -->
+                    <div class="ll-dropdown-header">
+                        <p class="ll-dropdown-role">Traveller</p>
+                        <p class="ll-dropdown-name">{{ user.displayName }}</p>
+                    </div>
+
+                    <div class="ll-dropdown-menu">
+                        <a routerLink="/my-trip" (click)="isProfileDropdownOpen.set(false)" class="ll-dropdown-item">
+                            <div class="ll-dropdown-item-icon ll-dropdown-item-icon--teal">
+                                <i class="pi pi-map text-sm"></i>
+                            </div>
+                            <span>My Itinerary</span>
+                        </a>
+
+                        <a routerLink="/profile" (click)="isProfileDropdownOpen.set(false)" class="ll-dropdown-item">
+                            <div class="ll-dropdown-item-icon ll-dropdown-item-icon--slate">
+                                <i class="pi pi-cog text-sm"></i>
+                            </div>
+                            <span>Account Settings</span>
+                        </a>
+
+                        <div class="ll-dropdown-divider"></div>
+
+                        <button (click)="logout()" class="ll-dropdown-item ll-dropdown-item--danger">
+                            <div class="ll-dropdown-item-icon ll-dropdown-item-icon--rose">
+                                <i class="pi pi-sign-out text-sm"></i>
+                            </div>
+                            <span>Log Out</span>
+                        </button>
+                    </div>
+                </div>
+                }
+            </div>
+
+            } @else {
+            <a routerLink="/signin" class="ll-signin-btn">Sign In</a>
+            }
+
+            <!-- Mobile hamburger -->
+            <button (click)="toggleMenu()" class="ll-hamburger" [class.ll-hamburger--open]="isMobileMenuOpen()">
+                @if (!isMobileMenuOpen()) {
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                    stroke="currentColor" class="w-5 h-5">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M3.75 6.75h16.5M3.75 12h16.5M12 17.25h8.25" />
+                </svg>
+                } @else {
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                    stroke="currentColor" class="w-5 h-5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+                }
+            </button>
+
+        </div>
+    </div>
+
+    <!-- ── Mobile menu ── -->
+    @if (isMobileMenuOpen()) {
+    <div class="ll-mobile-menu">
+        <div class="ll-mobile-links">
+            @for (link of navLinks(); track link.path) {
+            <a [routerLink]="link.path" (click)="closeMenu()" routerLinkActive="ll-mobile-link--active"
+                [routerLinkActiveOptions]="{exact: true}" class="ll-mobile-link">
+                {{ link.label }}
+                <i class="pi pi-chevron-right text-xs opacity-30"></i>
+            </a>
+            }
+        </div>
+
+        <div class="ll-mobile-divider"></div>
+
+        @if (!authService.currentUser()) {
+        <a routerLink="/signin" (click)="closeMenu()" class="ll-mobile-signin">
+            Sign In <i class="pi pi-arrow-right ml-2 text-sm"></i>
+        </a>
+        } @else {
+        <button (click)="logout(); closeMenu()" class="ll-mobile-logout">
+            <i class="pi pi-sign-out mr-2 text-sm"></i> Log Out
+        </button>
+        }
+    </div>
+    }
 </nav>

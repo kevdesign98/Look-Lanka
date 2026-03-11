@@ -1,0 +1,400 @@
+/* ================================================================
+   LookLanka — signin.component.css
+   Design system coerente: Cormorant Garamond + Outfit
+   ================================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600;1,700&family=Outfit:wght@300;400;500;600;700&display=swap');
+
+:host {
+    --ll-forest: #1a4a38;
+    --ll-forest-dk: #0d2b20;
+    --ll-teal: #0fa37f;
+    --ll-teal-lt: #19d4a3;
+    --ll-amber: #f5a623;
+    --ll-cream: #f8f6f1;
+    --ll-text: #18212e;
+    --ll-muted: #6b7280;
+    --ff-display: 'Cormorant Garamond', serif;
+    --ff-body: 'Outfit', sans-serif;
+    display: block;
+    height: 100%;
+}
+
+:host * {
+    font-family: var(--ff-body);
+}
+
+/* ════════════════════════════════════
+   LAYOUT
+════════════════════════════════════ */
+.ll-signin-wrap {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+@media (min-width: 768px) {
+    .ll-signin-wrap {
+        flex-direction: row;
+    }
+}
+
+/* ════════════════════════════════════
+   LEFT PANEL
+════════════════════════════════════ */
+.ll-panel-left {
+    display: none;
+    position: relative;
+    overflow: hidden;
+    background: var(--ll-forest-dk);
+}
+
+@media (min-width: 768px) {
+    .ll-panel-left {
+        display: flex;
+        width: 48%;
+        flex-direction: column;
+        justify-content: flex-end;
+        padding: 3rem;
+    }
+}
+
+/* Background image */
+.ll-panel-img {
+    position: absolute;
+    inset: 0;
+}
+
+.ll-panel-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.35;
+}
+
+/* Grain */
+.ll-panel-grain {
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    background-size: 200px;
+    opacity: 0.4;
+    pointer-events: none;
+}
+
+/* Gradient overlay (bottom fade) */
+.ll-panel-left::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top,
+            rgba(10, 30, 20, 0.95) 0%,
+            rgba(10, 30, 20, 0.5) 50%,
+            rgba(10, 30, 20, 0.1) 100%);
+    pointer-events: none;
+}
+
+/* Orbs */
+.ll-panel-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    pointer-events: none;
+}
+
+.ll-panel-orb-1 {
+    width: 380px;
+    height: 380px;
+    background: radial-gradient(circle, rgba(15, 163, 127, 0.25), transparent 70%);
+    top: -80px;
+    right: -60px;
+    animation: float-slow 14s ease-in-out infinite;
+}
+
+.ll-panel-orb-2 {
+    width: 250px;
+    height: 250px;
+    background: radial-gradient(circle, rgba(245, 166, 35, 0.12), transparent 70%);
+    bottom: 30%;
+    left: -40px;
+    animation: float-slow 18s ease-in-out infinite reverse;
+}
+
+@keyframes float-slow {
+
+    0%,
+    100% {
+        transform: translate(0, 0);
+    }
+
+    50% {
+        transform: translate(16px, -22px);
+    }
+}
+
+/* Panel content */
+.ll-panel-content {
+    position: relative;
+    z-index: 10;
+}
+
+/* Logo */
+.ll-panel-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 3rem;
+}
+
+.ll-logo-icon {
+    font-size: 1.2rem;
+}
+
+.ll-logo-text {
+    font-family: var(--ff-display);
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: #fff;
+    letter-spacing: -0.02em;
+}
+
+/* Quote */
+.ll-panel-quote {
+    font-family: var(--ff-display);
+    font-size: clamp(1.6rem, 3vw, 2.25rem);
+    font-weight: 600;
+    font-style: italic;
+    color: #fff;
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+}
+
+.ll-panel-sub {
+    color: rgba(255, 255, 255, 0.55);
+    font-size: 0.9rem;
+    line-height: 1.7;
+    font-weight: 300;
+    margin-bottom: 2rem;
+}
+
+/* Trust badges */
+.ll-trust-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.ll-trust-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 999px;
+    padding: 0.3rem 0.85rem;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.6);
+    letter-spacing: 0.04em;
+}
+
+/* ════════════════════════════════════
+   RIGHT PANEL
+════════════════════════════════════ */
+.ll-panel-right {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2.5rem 1.5rem;
+    background: var(--ll-cream);
+}
+
+/* Auth box */
+.ll-auth-box {
+    width: 100%;
+    max-width: 26rem;
+    animation: auth-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes auth-in {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Header */
+.ll-auth-header {
+    margin-bottom: 2.25rem;
+}
+
+.ll-auth-title {
+    font-family: var(--ff-display);
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--ll-text);
+    letter-spacing: -0.03em;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+}
+
+.ll-auth-sub {
+    font-size: 0.9rem;
+    color: var(--ll-muted);
+    font-weight: 300;
+}
+
+/* ════════════════════════════════════
+   SOCIAL BUTTONS
+════════════════════════════════════ */
+.ll-social-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+}
+
+.ll-social-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    width: 100%;
+    padding: 1rem 1.25rem;
+    border-radius: 1rem;
+    border: 1.5px solid transparent;
+    cursor: pointer;
+    font-size: 0.925rem;
+    font-weight: 600;
+    font-family: var(--ff-body);
+    transition: all 0.22s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Shimmer effect on hover */
+.ll-social-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.12), transparent);
+    transform: translateX(-100%);
+    transition: transform 0.4s ease;
+}
+
+.ll-social-btn:hover::before {
+    transform: translateX(100%);
+}
+
+.ll-social-btn--google {
+    background: #fff;
+    border-color: rgba(0, 0, 0, 0.08);
+    color: #3c4043;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+}
+
+.ll-social-btn--google:hover {
+    border-color: rgba(66, 133, 244, 0.3);
+    box-shadow: 0 4px 20px rgba(66, 133, 244, 0.12);
+    transform: translateY(-2px);
+}
+
+.ll-social-btn--apple {
+    background: #18212e;
+    border-color: transparent;
+    color: #fff;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+}
+
+.ll-social-btn--apple:hover {
+    background: #0f172a;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+    transform: translateY(-2px);
+}
+
+.ll-social-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.75rem;
+    height: 1.75rem;
+    flex-shrink: 0;
+}
+
+.ll-social-label {
+    flex: 1;
+    text-align: left;
+}
+
+.ll-social-arrow {
+    font-size: 0.7rem;
+    opacity: 0;
+    transform: translateX(-4px);
+    transition: all 0.22s ease;
+}
+
+.ll-social-btn:hover .ll-social-arrow {
+    opacity: 0.6;
+    transform: translateX(0);
+}
+
+/* ════════════════════════════════════
+   DIVIDER
+════════════════════════════════════ */
+.ll-divider {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin: 2rem 0 1.75rem;
+}
+
+.ll-divider-line {
+    flex: 1;
+    height: 1px;
+    background: rgba(0, 0, 0, 0.07);
+}
+
+.ll-divider-text {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(0, 0, 0, 0.25);
+    white-space: nowrap;
+}
+
+/* ════════════════════════════════════
+   FOOTER TEXT
+════════════════════════════════════ */
+.ll-auth-note {
+    font-size: 0.78rem;
+    color: var(--ll-muted);
+    text-align: center;
+    line-height: 1.6;
+}
+
+.ll-auth-signup {
+    font-size: 0.85rem;
+    color: var(--ll-muted);
+    text-align: center;
+    margin-top: 1rem;
+}
+
+.ll-auth-link {
+    color: var(--ll-teal);
+    text-decoration: none;
+    transition: opacity 0.18s;
+}
+
+.ll-auth-link:hover {
+    opacity: 0.7;
+}
+
+.ll-auth-link--bold {
+    font-weight: 700;
+}

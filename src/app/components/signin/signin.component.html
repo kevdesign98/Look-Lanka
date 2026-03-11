@@ -1,65 +1,118 @@
-<div class="min-h-screen flex flex-col md:flex-row bg-slate-50">
+<div class="ll-signin-wrap">
 
-    <div class="hidden md:flex md:w-1/2 bg-emerald-900 relative items-center justify-center p-12 overflow-hidden">
-        <div class="absolute inset-0 opacity-40">
-            <img src="https://images.unsplash.com/photo-1580910527739-556eb89f9d65?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                class="w-full h-full object-cover" alt="Sri Lanka Nature">
+    <!-- ══ LEFT PANEL — image + quote ══ -->
+    <div class="ll-panel-left">
+        <div class="ll-panel-img">
+            <img src="https://images.unsplash.com/photo-1580910527739-556eb89f9d65?q=80&w=1074&auto=format&fit=crop"
+                alt="Sri Lanka Nature" />
         </div>
-        <div class="relative z-10 text-white max-w-md">
-            <h2 class="text-4xl font-serif font-bold mb-6 italic">"The island of serendipity awaits you, safely."</h2>
-            <p class="text-emerald-100 font-light">Log in to unlock your personalized planner and travel without
-                worries.</p>
-        </div>
-    </div>
+        <div class="ll-panel-grain"></div>
+        <div class="ll-panel-orb ll-panel-orb-1"></div>
+        <div class="ll-panel-orb ll-panel-orb-2"></div>
 
-    <div class="flex-1 flex items-center justify-center p-8 md:p-16">
-        <div class="w-full max-w-md">
-            <div class="mb-10 text-center md:text-left">
-                <h1 class="text-3xl font-bold text-slate-800 mb-2">Welcome on LookLanka!</h1>
-                <p class="text-slate-500">Choose your preferred login method</p>
+        <div class="ll-panel-content">
+            <!-- Logo -->
+            <div class="ll-panel-logo">
+                <span class="ll-logo-icon">🌿</span>
+                <span class="ll-logo-text">LookLanka</span>
             </div>
 
-            <div class="grid grid-cols-1 gap-4 mb-8">
-                <button (click)="signInWithGoogle()"
-                    class="flex items-center justify-center gap-3 w-full py-3 px-4 border border-slate-200 rounded-xl bg-white hover:bg-slate-50 transition-all shadow-sm">
-                    <i class="pi pi-google text-red-500"></i>
-                    <span class="font-semibold text-slate-700">Continue with Google</span>
-                </button>
-
-                <button
-                    class="flex items-center justify-center gap-3 w-full py-3 px-4 border border-slate-200 rounded-xl bg-white hover:bg-slate-50 transition-all shadow-sm">
-                    <i class="pi pi-apple text-slate-900"></i>
-                    <span class="font-semibold text-slate-700">Continue with Apple</span>
-                </button>
-            </div>
-
-            <div class="relative my-8 text-center">
-                <span class="absolute inset-x-0 top-1/2 h-px bg-slate-200"></span>
-                <span class="relative bg-slate-50 px-4 text-sm text-slate-400 uppercase">Or with email</span>
-            </div>
-
-            <div class="space-y-6">
-                <span class="p-fluid">
-                    <div class="field mb-4">
-                        <label class="block text-sm font-medium text-slate-700 mb-1">Email</label>
-                        <input pInputText type="email" placeholder="name@example.com"
-                            class="w-full rounded-xl border-slate-200" />
-                    </div>
-                    <div class="field mb-6">
-                        <label class="block text-sm font-medium text-slate-700 mb-1">Password</label>
-                        <input pInputText type="password" class="w-full rounded-xl border-slate-200" />
-                    </div>
-                </span>
-
-                <button
-                    class="w-full py-4 bg-emerald-600 text-white font-bold rounded-xl hover:bg-emerald-700 transition-all shadow-lg">
-                    Login
-                </button>
-            </div>
-
-            <p class="mt-8 text-center text-sm text-slate-500">
-                Don't have an account? <a href="#" class="text-emerald-600 font-bold hover:underline">Sign up now</a>
+            <!-- Quote -->
+            <blockquote class="ll-panel-quote">
+                "The island of serendipity awaits you, safely."
+            </blockquote>
+            <p class="ll-panel-sub">
+                Log in to unlock your personalised planner and travel without worries.
             </p>
+
+            <!-- Trust badges -->
+            <div class="ll-trust-row">
+                <div class="ll-trust-badge">
+                    <i class="pi pi-shield text-xs"></i>
+                    <span>Verified Data</span>
+                </div>
+                <div class="ll-trust-badge">
+                    <i class="pi pi-map-marker text-xs"></i>
+                    <span>Live Map</span>
+                </div>
+                <div class="ll-trust-badge">
+                    <i class="pi pi-users text-xs"></i>
+                    <span>Community</span>
+                </div>
+            </div>
         </div>
     </div>
+
+    <!-- ══ RIGHT PANEL — auth ══ -->
+    <div class="ll-panel-right">
+        <div class="ll-auth-box">
+
+            <!-- Header -->
+            <div class="ll-auth-header text-center">
+                <h1 class="ll-auth-title">Welcome!</h1>
+                <p class="ll-auth-sub">Sign in to your LookLankan account</p>
+            </div>
+
+            <!-- Social buttons -->
+            <div class="ll-social-stack">
+
+                <button (click)="signInWithGoogle()" class="ll-social-btn ll-social-btn--google">
+                    <span class="ll-social-icon">
+                        <!-- Google SVG logo -->
+                        <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                            <path
+                                d="M17.64 9.2045C17.64 8.5663 17.5827 7.9527 17.4764 7.3636H9V10.845H13.8436C13.635 11.97 13.0009 12.9231 12.0477 13.5613V15.8195H14.9564C16.6582 14.2527 17.64 11.9454 17.64 9.2045Z"
+                                fill="#4285F4" />
+                            <path
+                                d="M9 18C11.43 18 13.4673 17.1941 14.9564 15.8195L12.0477 13.5613C11.2418 14.1013 10.2109 14.4204 9 14.4204C6.65591 14.4204 4.67182 12.8372 3.96409 10.71H0.957275V13.0418C2.43818 15.9831 5.48182 18 9 18Z"
+                                fill="#34A853" />
+                            <path
+                                d="M3.96409 10.71C3.78409 10.17 3.68182 9.5931 3.68182 9C3.68182 8.4068 3.78409 7.8299 3.96409 7.29V4.9581H0.957275C0.347727 6.1731 0 7.5477 0 9C0 10.4522 0.347727 11.8268 0.957275 13.0418L3.96409 10.71Z"
+                                fill="#FBBC05" />
+                            <path
+                                d="M9 3.5795C10.3214 3.5795 11.5077 4.0336 12.4405 4.9254L15.0218 2.344C13.4632 0.8918 11.4259 0 9 0C5.48182 0 2.43818 2.0168 0.957275 4.9581L3.96409 7.29C4.67182 5.1627 6.65591 3.5795 9 3.5795Z"
+                                fill="#EA4335" />
+                        </svg>
+                    </span>
+                    <span class="ll-social-label">Continue with Google</span>
+                    <i class="pi pi-arrow-right ll-social-arrow"></i>
+                </button>
+
+                <button class="ll-social-btn ll-social-btn--apple">
+                    <span class="ll-social-icon">
+                        <!-- Apple SVG logo -->
+                        <svg width="16" height="18" viewBox="0 0 16 18" fill="currentColor">
+                            <path
+                                d="M13.1719 9.5859C13.1562 7.6523 14.7344 6.7148 14.8086 6.668C13.8633 5.2773 12.375 5.0859 11.8477 5.0703C10.5938 4.9414 9.375 5.8008 8.73438 5.8008C8.07422 5.8008 7.07813 5.0859 6.01172 5.1016C4.64453 5.1172 3.36328 5.8945 2.65234 7.1094C1.19141 9.5781 2.27344 13.2266 3.67578 15.2344C4.38672 16.2109 5.21484 17.3086 6.30469 17.2695C7.35938 17.2305 7.76172 16.6016 9.02344 16.6016C10.2695 16.6016 10.6406 17.2695 11.7344 17.2461C12.8594 17.2305 13.5781 16.2578 14.2734 15.2734C15.0977 14.1523 15.4297 13.0625 15.4453 13.0078C15.418 12.9922 13.1875 12.1484 13.1719 9.5859Z" />
+                            <path
+                                d="M11.0234 3.5547C11.5977 2.8594 11.9922 1.9063 11.8789 0.9375C11.0625 0.9688 10.0547 1.4922 9.45703 2.1719C8.92578 2.7773 8.45313 3.7617 8.58203 4.707C9.49609 4.7773 10.4336 4.25 11.0234 3.5547Z" />
+                        </svg>
+                    </span>
+                    <span class="ll-social-label">Continue with Apple</span>
+                    <i class="pi pi-arrow-right ll-social-arrow"></i>
+                </button>
+
+            </div>
+
+            <!-- Divider -->
+            <div class="ll-divider">
+                <span class="ll-divider-line"></span>
+                <span class="ll-divider-text">secure &amp; private</span>
+                <span class="ll-divider-line"></span>
+            </div>
+
+            <!-- Footer note -->
+            <p class="ll-auth-note">
+                By signing in you agree to our
+                <a href="#" class="ll-auth-link">Terms</a> and
+                <a href="#" class="ll-auth-link">Privacy Policy</a>.
+            </p>
+
+
+
+        </div>
+    </div>
+
 </div>
+
+<app-footer />

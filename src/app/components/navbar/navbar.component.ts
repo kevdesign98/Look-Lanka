@@ -40,7 +40,8 @@ export class NavbarComponent {
     { path: '/home', label: 'Home', protected: false },
     { path: '/explore', label: 'Explore', protected: false },
     { path: '/safety', label: 'Safety', protected: false },
-    { path: '/my-trip', label: 'My Trip', protected: true } // Questo è protetto
+    { path: '/my-trip', label: 'My Trip', protected: true },
+    { path: '/events', label: 'Events', protected: false }
   ];
 
   // Generiamo la lista filtrata in base al login

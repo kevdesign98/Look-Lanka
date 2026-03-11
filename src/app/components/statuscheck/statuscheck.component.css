@@ -1,0 +1,226 @@
+/* ================================================================
+   LookLanka — statuscheck.component.css
+   Componente riusabile: mode="compact" | "full"
+   ================================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600;1,700&family=Outfit:wght@300;400;500;600;700&display=swap');
+
+:host {
+    --ll-teal: #0fa37f;
+    --ll-teal-lt: #19d4a3;
+    --ll-amber: #f5a623;
+    --ll-text: #18212e;
+    --ll-muted: #6b7280;
+    --ff-display: 'Cormorant Garamond', serif;
+    --ff-body: 'Outfit', sans-serif;
+    display: block;
+}
+
+:host * {
+    font-family: var(--ff-body);
+}
+
+/* ════════════════════════════════════
+   GRID
+════════════════════════════════════ */
+.ll-status-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+}
+
+@media (min-width: 768px) {
+    .ll-status-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* Compact mode — card più basse */
+.ll-status-grid--compact .ll-status-card {
+    padding: 1.1rem 1.25rem;
+}
+
+.ll-status-grid--compact .ll-status-value {
+    font-size: 1.6rem;
+}
+
+.ll-status-grid--compact .ll-status-icon {
+    width: 2.5rem;
+    height: 2.5rem;
+}
+
+.ll-status-grid--compact .ll-status-icon i {
+    font-size: 1.1rem !important;
+}
+
+/* ════════════════════════════════════
+   CARD BASE
+════════════════════════════════════ */
+.ll-status-card {
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    border-radius: 1.5rem;
+    padding: 1.5rem;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+    transition: transform 0.22s ease, box-shadow 0.22s ease;
+}
+
+.ll-status-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 32px rgba(0, 0, 0, 0.09);
+}
+
+/* Bottom color bar — accent per ogni card */
+.ll-status-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    border-radius: 0 0 1.5rem 1.5rem;
+    transform: scaleX(0.3);
+    transform-origin: left;
+    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ll-status-card:hover .ll-status-bar {
+    transform: scaleX(1);
+}
+
+.ll-status-bar--amber {
+    background: linear-gradient(90deg, #f5a623, #fbbf24);
+}
+
+.ll-status-bar--teal {
+    background: linear-gradient(90deg, #0fa37f, #19d4a3);
+}
+
+.ll-status-bar--green {
+    background: linear-gradient(90deg, #22c55e, #4ade80);
+}
+
+/* Inner layout */
+.ll-status-card-inner {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 0.75rem;
+}
+
+/* ════════════════════════════════════
+   TYPOGRAPHY
+════════════════════════════════════ */
+.ll-status-label {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ll-muted);
+    margin-bottom: 0.4rem;
+}
+
+.ll-status-value {
+    font-family: var(--ff-display);
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--ll-text);
+    line-height: 1;
+    letter-spacing: -0.03em;
+}
+
+.ll-status-value--md {
+    font-size: 1.35rem;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+}
+
+.ll-status-unit {
+    font-size: 0.95rem;
+    font-weight: 400;
+    opacity: 0.5;
+}
+
+.ll-status-sub {
+    font-size: 0.78rem;
+    color: var(--ll-muted);
+    margin-top: 0.3rem;
+    font-weight: 300;
+}
+
+/* ════════════════════════════════════
+   ICON BOXES
+════════════════════════════════════ */
+.ll-status-icon {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: transform 0.25s ease;
+}
+
+.ll-status-card:hover .ll-status-icon {
+    transform: scale(1.1) rotate(5deg);
+}
+
+.ll-status-card--safety:hover .ll-status-icon {
+    transform: scale(1.1) rotate(12deg);
+}
+
+.ll-status-icon--amber {
+    background: #fffbeb;
+}
+
+.ll-status-icon--teal {
+    background: #ecfdf5;
+}
+
+.ll-status-icon--green {
+    background: #f0fdf4;
+}
+
+/* ════════════════════════════════════
+   TREND & STATUS DOTS
+════════════════════════════════════ */
+.ll-trend-dot {
+    width: 0.45rem;
+    height: 0.45rem;
+    border-radius: 50%;
+    background: #22c55e;
+    box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.2);
+    flex-shrink: 0;
+    animation: pulse-dot 2s ease-in-out infinite;
+}
+
+.ll-safe-dot {
+    width: 0.45rem;
+    height: 0.45rem;
+    border-radius: 50%;
+    background: #22c55e;
+    box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.2);
+    flex-shrink: 0;
+}
+
+@keyframes pulse-dot {
+
+    0%,
+    100% {
+        box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.2);
+    }
+
+    50% {
+        box-shadow: 0 0 0 6px rgba(34, 197, 94, 0.08);
+    }
+}
+
+.ll-trend-text {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #16a34a;
+}

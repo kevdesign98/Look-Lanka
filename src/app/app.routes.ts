@@ -11,6 +11,7 @@ import { MapscanvasComponent } from './components/mapscanvas/mapscanvas.componen
 import { DriverListComponent } from './components/driver-list/driver-list.component';
 // import { AuthGuard } from './core/auth.guard';
 import { ProfileComponent } from './components/profile/profile.component';
+import { EventsComponent } from './pages/events/events.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -25,5 +26,5 @@ export const routes: Routes = [
     { path: 'map-explorer', component: MapscanvasComponent },
     { path: 'drivers', component: DriverListComponent },
     { path: 'profile', component: ProfileComponent },
-
+    { path: 'events', component: EventsComponent },
 ];

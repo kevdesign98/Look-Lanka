@@ -1,4 +1,4 @@
-<app-navbar />
+<!-- <app-navbar />
 
 <section class="relative bg-emerald-900 text-white pt-24 pb-32 px-6 overflow-hidden">
     <div class="max-w-6xl mx-auto relative z-10">
@@ -272,6 +272,378 @@
                     Full Safety Hub
                 </button>
             </div>
+        </div>
+    </div>
+</section>
+
+<app-footer /> -->
+
+<app-navbar />
+
+<!-- ═══════════════════════════════════════════════
+     HERO
+═══════════════════════════════════════════════ -->
+<section class="ll-hero">
+    <!-- Texture grain overlay -->
+    <div class="ll-hero-grain"></div>
+
+    <!-- Decorative circles -->
+    <div class="ll-orb ll-orb-1"></div>
+    <div class="ll-orb ll-orb-2"></div>
+    <div class="ll-orb ll-orb-3"></div>
+
+    <div class="max-w-6xl mx-auto px-6 relative z-10">
+        <div class="ll-hero-inner">
+            <span class="ll-eyebrow">🌿 Honest Travel Intel</span>
+            <h1 class="ll-hero-title">
+                Look<span class="ll-hero-title-accent">Lanka</span>
+            </h1>
+            <p class="ll-hero-sub">
+                Explore Sri Lanka without filters. The honest guide to
+                discovering hidden gems and avoiding tourist traps.
+            </p>
+            <div class="flex flex-wrap gap-3 mt-10">
+                <a routerLink="/signin" class="ll-btn-cta">
+                    Start Your Journey
+                    <i class="pi pi-arrow-right ml-2 text-sm"></i>
+                </a>
+                <button class="ll-btn-ghost">
+                    <i class="pi pi-play-circle mr-2 text-sm"></i>
+                    Watch the Story
+                </button>
+            </div>
+
+            <!-- Scroll hint -->
+            <div class="ll-scroll-hint">
+                <div class="ll-scroll-dot"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Wave divider -->
+    <div class="ll-wave">
+        <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
+            <path fill="#f8f6f1"
+                d="M0,64L60,69.3C120,75,240,85,360,80C480,75,600,53,720,48C840,43,960,53,1080,58.7C1200,64,1320,64,1380,64L1440,64L1440,120L0,120Z" />
+        </svg>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     WIDGET CARDS — overlap hero
+═══════════════════════════════════════════════ -->
+<section class="ll-widgets-wrap">
+    <div class="max-w-6xl mx-auto px-6">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+
+            <!-- ── Weather ── -->
+            <div class="ll-card ll-card-weather">
+                <div class="ll-card-header">
+                    <div>
+                        <p class="ll-card-label">🌤 Live Weather</p>
+                        @if (weatherData()) {
+                        <h3 class="ll-card-title">{{ weatherData().name }}, Sri Lanka</h3>
+                        } @else {
+                        <div class="ll-skeleton w-36 h-5 mt-1"></div>
+                        }
+                    </div>
+                    <div class="ll-card-icon ll-card-icon--green">
+                        <i [class]="weatherData()?.weather?.[0]?.main === 'Rain'
+                ? 'pi pi-cloud-rain' : 'pi pi-sun'"></i>
+                    </div>
+                </div>
+
+                @if (weatherData()) {
+                <div class="ll-card-stat">
+                    <span class="ll-stat-value">
+                        {{ weatherData().main.temp | number:'1.0-0' }}<span class="ll-stat-unit">°C</span>
+                    </span>
+                    <span class="ll-stat-desc capitalize">
+                        {{ weatherData().weather[0].description }}
+                    </span>
+                </div>
+                <div class="ll-search-wrap">
+                    <input #cityInput type="text" placeholder="Search city (e.g. Ella, Kandy…)"
+                        (keyup.enter)="searchCity(cityInput.value)" class="ll-search-input" />
+                    <button (click)="searchCity(cityInput.value)" class="ll-search-btn">
+                        <i class="pi pi-search text-xs"></i>
+                    </button>
+                </div>
+                } @else {
+                <div class="flex flex-col gap-3 mt-4">
+                    <div class="ll-skeleton w-1/2 h-10"></div>
+                    <div class="ll-skeleton w-full h-9"></div>
+                </div>
+                }
+            </div>
+
+            <!-- ── Exchange ── -->
+            <div class="ll-card ll-card-exchange">
+                <div class="ll-card-header">
+                    <div>
+                        <p class="ll-card-label">💱 Exchange Rate</p>
+                        @if (currencyData()) {
+                        <h3 class="ll-card-title">EUR → LKR</h3>
+                        } @else {
+                        <div class="ll-skeleton w-28 h-5 mt-1"></div>
+                        }
+                    </div>
+                    <div class="ll-card-icon ll-card-icon--blue">
+                        <i class="pi pi-money-bill"></i>
+                    </div>
+                </div>
+
+                @if (currencyData()) {
+                <div class="ll-card-stat">
+                    <span class="ll-stat-value">
+                        {{ currencyData() | number:'1.0-0' }}<span class="ll-stat-unit">.{{ (currencyData() % 1 * 100) |
+                            number:'2.0-0' }}</span>
+                    </span>
+                    <span class="ll-stat-desc">LKR per Euro · real-time</span>
+                </div>
+                <div class="ll-rate-pill">1 EUR = {{ currencyData() | number:'1.2-2' }} LKR</div>
+                } @else {
+                <div class="ll-skeleton w-1/2 h-10 mt-4"></div>
+                }
+            </div>
+
+            <!-- ── Safety ── -->
+            <div class="ll-card ll-card-safety">
+                <div class="ll-card-header">
+                    <div>
+                        <p class="ll-card-label">🛡 Safety Alert</p>
+                        <h3 class="ll-card-title">Normal Precautions</h3>
+                    </div>
+                    <div class="ll-card-icon ll-card-icon--amber">
+                        <i class="pi pi-shield"></i>
+                    </div>
+                </div>
+                <div class="ll-card-stat">
+                    <div class="flex items-center gap-2">
+                        <span class="ll-status-dot ll-status-dot--green"></span>
+                        <span class="text-sm font-semibold text-emerald-700">No current restrictions</span>
+                    </div>
+                </div>
+                <p class="text-xs text-slate-400 mt-3 leading-relaxed">
+                    Check community alerts before heading to remote areas.
+                </p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     WHY LOOKLANKA
+═══════════════════════════════════════════════ -->
+<section class="ll-section-cream py-24">
+    <div class="max-w-4xl mx-auto px-6 text-center">
+        <span class="ll-eyebrow ll-eyebrow--dark">The Real Deal</span>
+        <h2 class="ll-section-title mt-2">Why LookLanka?</h2>
+        <p class="ll-section-body mx-auto max-w-2xl mt-4">
+            Sri Lanka is a paradise, but navigating "tourist prices" and persistent
+            taxi drivers can be stressful. We provide real data, honest prices, and
+            community alerts to ensure you enjoy only the best of the island.
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-14 text-left">
+            <div class="ll-feature-card">
+                <div class="ll-feature-icon">📍</div>
+                <h3 class="ll-feature-title">Real Prices</h3>
+                <p class="ll-feature-body">No inflated tourist rates. Community-sourced price benchmarks for every
+                    destination.</p>
+            </div>
+            <div class="ll-feature-card">
+                <div class="ll-feature-icon">🚨</div>
+                <h3 class="ll-feature-title">Scam Alerts</h3>
+                <p class="ll-feature-body">Live scam reports from fellow travellers. Always know what to watch out for.
+                </p>
+            </div>
+            <div class="ll-feature-card">
+                <div class="ll-feature-icon">🤝</div>
+                <h3 class="ll-feature-title">Honest Community</h3>
+                <p class="ll-feature-body">Verified drivers, trusted guides and a forum of experienced travellers
+                    backing you up.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     SOLO FEMALE SAFETY HUB
+═══════════════════════════════════════════════ -->
+<section class="ll-section-dark py-24">
+    <div class="max-w-6xl mx-auto px-6">
+
+        <div class="ll-section-head">
+            <span class="ll-badge-outline">Women's Travel Guide</span>
+            <h2 class="ll-section-title ll-section-title--light mt-4">
+                Solo Female <span class="ll-title-teal">Safety Hub</span>
+            </h2>
+            <p class="text-slate-400 text-base leading-relaxed mt-3 max-w-xl font-light">
+                Sri Lanka is a magical destination for women travelling alone.
+                Practical tips collected from our community to help you feel safe at all times.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-5 mt-12">
+
+            <!-- Dress tip — large -->
+            <div class="ll-tip-card ll-tip-card--navy md:col-span-2 lg:col-span-2">
+                <div class="ll-tip-glow"></div>
+                <div class="relative z-10 flex flex-col h-full justify-between">
+                    <div>
+                        <i class="pi pi-shield text-2xl text-emerald-400 mb-5"></i>
+                        <h3 class="ll-tip-title italic">Dress with Respect</h3>
+                        <p class="ll-tip-body mt-3">
+                            Dressing modestly (shoulders and knees covered) isn't just for temples.
+                            It helps you blend in and avoid unwanted attention in markets or on public transport.
+                        </p>
+                    </div>
+                    <div class="ll-pro-tip-bar">
+                        <span class="ll-pro-label">PRO TIP</span>
+                        Always carry a sarong.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Safe Commute -->
+            <div class="ll-tip-card ll-tip-card--mint">
+                <div class="ll-tip-icon-wrap">
+                    <i class="pi pi-car text-emerald-600"></i>
+                </div>
+                <h3 class="ll-tip-title ll-tip-title--dark mt-4">Safe Commute</h3>
+                <p class="ll-tip-body ll-tip-body--dark mt-2">
+                    Always use <strong>PickMe</strong> for evening Tuk-Tuks.
+                    Every ride is GPS-tracked and you can share the trip with a friend.
+                </p>
+            </div>
+
+            <!-- Sisterhood -->
+            <div class="ll-tip-card ll-tip-card--sand">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-9 h-9 rounded-full bg-amber-400 flex items-center justify-center">
+                        <i class="pi pi-users text-white text-sm"></i>
+                    </div>
+                    <span class="font-bold text-amber-900">Sisterhood</span>
+                </div>
+                <p class="ll-tip-body ll-tip-body--amber">
+                    On public buses, try to sit next to other women or families.
+                    It's the local norm and discourages troublemakers.
+                </p>
+            </div>
+
+            <!-- CTA Banner -->
+            <div class="ll-cta-strip lg:col-span-4 md:col-span-3">
+                <div>
+                    <p class="text-white font-bold text-xl italic">Want the complete Survival Guide?</p>
+                    <p class="text-slate-400 text-sm mt-1 font-light">
+                        Emergency contacts, blacklists of areas, and health advice — all in one place.
+                    </p>
+                </div>
+                <button routerLink="/safety" class="ll-btn-strip">
+                    Explore Safety Hub <i class="pi pi-arrow-right ml-2 text-sm"></i>
+                </button>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     TRAVEL SMART / STAY SAFE
+═══════════════════════════════════════════════ -->
+<section class="ll-section-cream py-24">
+    <div class="max-w-6xl mx-auto px-6">
+
+        <span class="ll-eyebrow ll-eyebrow--dark">Know Before You Go</span>
+        <h2 class="ll-section-title mt-2">
+            Travel Smart, <span class="text-emerald-600">Stay Safe</span>
+        </h2>
+        <p class="ll-section-body max-w-xl mt-3">
+            From common tourist traps to solo female travel advice: everything
+            you need to know for a worry-free experience.
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-5 mt-12">
+
+            <!-- Women guide — tall -->
+            <div class="ll-article-card ll-article-card--navy md:col-span-2 lg:col-span-2">
+                <div class="ll-tip-glow"></div>
+                <div class="relative z-10 flex flex-col h-full justify-between">
+                    <div>
+                        <span class="ll-badge-pill">Women's Guide</span>
+                        <h3 class="ll-article-title mt-5 italic">Solo Female Safety</h3>
+                        <p class="ll-article-body mt-3">
+                            Sri Lanka is incredibly welcoming. Simple tips like sitting near other
+                            women on buses or using the PickMe app for evening rides make all the difference.
+                        </p>
+                    </div>
+                    <button routerLink="/safety" class="ll-link-btn mt-8">
+                        Read the full guide <i class="pi pi-arrow-right ml-2 text-xs"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Closed Temple -->
+            <div class="ll-article-card ll-article-card--white ll-article-card--rose">
+                <div class="ll-article-icon-wrap ll-article-icon-wrap--rose">
+                    <i class="pi pi-map text-rose-500 group-hover:text-white text-lg"></i>
+                </div>
+                <h3 class="ll-article-title ll-article-title--dark mt-5">The "Closed" Temple</h3>
+                <p class="ll-article-body ll-article-body--muted mt-2">
+                    Drivers might claim a temple is closed just to take you to high-commission gem shops.
+                </p>
+                <div class="ll-article-tip mt-auto pt-6">
+                    <i class="pi pi-info-circle mr-1"></i> Always check the gate yourself
+                </div>
+            </div>
+
+            <!-- Fake Healers -->
+            <div class="ll-article-card ll-article-card--white ll-article-card--emerald">
+                <div class="ll-article-icon-wrap ll-article-icon-wrap--emerald">
+                    <i class="pi pi-shield text-emerald-600 group-hover:text-white text-lg"></i>
+                </div>
+                <h3 class="ll-article-title ll-article-title--dark mt-5">Fake "Healers"</h3>
+                <p class="ll-article-body ll-article-body--muted mt-2">
+                    Be wary of strangers offering street blessings or "miracle" Ayurvedic herbs.
+                </p>
+                <div class="ll-article-tip mt-auto pt-6">
+                    <i class="pi pi-check-circle mr-1"></i> Smile and walk away
+                </div>
+            </div>
+
+            <!-- Coconut price -->
+            <div class="ll-price-card">
+                <span class="ll-price-label">🥥 Fair Price Alert</span>
+                <h3 class="font-bold text-amber-900 mt-2">Coconut Fair Price</h3>
+                <p class="text-sm text-amber-800/70 mt-1 leading-relaxed">
+                    On southern beaches, don't pay 500 LKR for a king coconut.
+                </p>
+                <div class="ll-price-chip mt-4">100 – 150 LKR</div>
+            </div>
+
+            <!-- Big CTA -->
+            <div class="ll-final-cta md:col-span-2 lg:col-span-3">
+                <div class="ll-final-cta-glow"></div>
+                <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
+                    <div>
+                        <h3 class="text-2xl md:text-3xl font-bold text-white italic">Ready for a safe trip?</h3>
+                        <p class="text-emerald-100 text-sm mt-1 font-light">
+                            Join the community and unlock your interactive travel map.
+                        </p>
+                    </div>
+                    <div class="flex gap-3 shrink-0">
+                        <a routerLink="/signin" class="ll-btn-cta ll-btn-cta--amber">
+                            Get Started
+                        </a>
+                        <button routerLink="/safety" class="ll-btn-ghost ll-btn-ghost--border">
+                            Full Safety Hub
+                        </button>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 </section>

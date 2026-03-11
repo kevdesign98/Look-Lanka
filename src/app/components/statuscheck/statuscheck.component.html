@@ -1,4 +1,4 @@
-<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
 
     <div
         class="bg-white p-6 rounded-2xl shadow-xl border border-slate-100 flex items-center justify-between group hover:border-emerald-200 transition-all">
@@ -37,6 +37,65 @@
         <div class="bg-amber-50 p-3 rounded-xl group-hover:rotate-12 transition-transform">
             <i class="pi pi-shield text-amber-500 text-3xl"></i>
         </div>
+    </div>
+
+</div> -->
+
+<div class="ll-status-grid" [class.ll-status-grid--compact]="mode === 'compact'">
+
+    <!-- ── Weather ── -->
+    <div class="ll-status-card ll-status-card--weather group">
+        <div class="ll-status-card-inner">
+            <div>
+                <p class="ll-status-label">🌤 Meteo {{ weatherData.city }}</p>
+                <h3 class="ll-status-value">
+                    {{ weatherData.temp }}<span class="ll-status-unit">°C</span>
+                </h3>
+                <p class="ll-status-sub">{{ weatherData.condition }}</p>
+            </div>
+            <div class="ll-status-icon ll-status-icon--amber">
+                <i class="pi pi-sun text-amber-500 text-2xl"></i>
+            </div>
+        </div>
+        <div class="ll-status-bar ll-status-bar--amber"></div>
+    </div>
+
+    <!-- ── Exchange ── -->
+    <div class="ll-status-card ll-status-card--exchange group">
+        <div class="ll-status-card-inner">
+            <div>
+                <p class="ll-status-label">💱 Cambio EUR / LKR</p>
+                <h3 class="ll-status-value">
+                    {{ rateData.rate }}<span class="ll-status-unit"> LKR</span>
+                </h3>
+                <div class="flex items-center gap-1.5 mt-1">
+                    <span class="ll-trend-dot"></span>
+                    <p class="ll-trend-text">{{ rateData.trend }}</p>
+                </div>
+            </div>
+            <div class="ll-status-icon ll-status-icon--teal">
+                <i class="pi pi-chart-line text-emerald-600 text-2xl"></i>
+            </div>
+        </div>
+        <div class="ll-status-bar ll-status-bar--teal"></div>
+    </div>
+
+    <!-- ── Safety ── -->
+    <div class="ll-status-card ll-status-card--safety group">
+        <div class="ll-status-card-inner">
+            <div>
+                <p class="ll-status-label">🛡 Safety Status</p>
+                <h3 class="ll-status-value ll-status-value--md">{{ alertData.level }}</h3>
+                <div class="flex items-center gap-1.5 mt-1">
+                    <span class="ll-safe-dot"></span>
+                    <p class="ll-status-sub">Aggiornato a oggi</p>
+                </div>
+            </div>
+            <div class="ll-status-icon ll-status-icon--green">
+                <i class="pi pi-shield text-emerald-600 text-2xl"></i>
+            </div>
+        </div>
+        <div class="ll-status-bar ll-status-bar--green"></div>
     </div>
 
 </div>

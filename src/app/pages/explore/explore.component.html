@@ -1,4 +1,4 @@
-<app-navbar />
+<!-- <app-navbar />
 
 
 <section class="relative pt-32 pb-20 bg-slate-50 min-h-screen overflow-hidden">
@@ -207,5 +207,257 @@
     </div>
 </section>
 
+
+<app-footer /> -->
+
+<app-navbar />
+
+<!-- ═══════════════════════════════════════════════
+     HERO
+═══════════════════════════════════════════════ -->
+<section class="ll-explorer-hero">
+    <div class="ll-hero-grain"></div>
+    <div class="ll-orb ll-orb-1"></div>
+    <div class="ll-orb ll-orb-2"></div>
+
+    <div class="max-w-6xl mx-auto px-6 relative z-10 text-center">
+        <span class="ll-eyebrow">🗺 Discovery Mode</span>
+        <h1 class="ll-hero-title">
+            The <span class="ll-hero-title-accent">Honest</span><br />Explorer
+        </h1>
+        <p class="ll-hero-sub mx-auto max-w-xl">
+            We've mapped the island's wonders. No traps, no fake prices —
+            just the pure spirit of Sri Lanka.
+        </p>
+
+        <!-- Scroll indicator -->
+        <div class="ll-scroll-hint mx-auto mt-12">
+            <div class="ll-scroll-dot"></div>
+        </div>
+    </div>
+
+    <div class="ll-wave">
+        <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
+            <path fill="#f8f6f1"
+                d="M0,80L60,74.7C120,69,240,59,360,64C480,69,600,91,720,96C840,101,960,91,1080,80C1200,69,1320,69,1380,69.3L1440,69L1440,120L0,120Z" />
+        </svg>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     DESTINATIONS
+═══════════════════════════════════════════════ -->
+<section class="ll-section-cream">
+    <div class="max-w-6xl mx-auto px-6 py-28 space-y-36">
+
+        <!-- ── SIGIRIYA ── -->
+        <div class="ll-dest-row group">
+            <div class="ll-dest-img-wrap">
+                <div class="ll-dest-img-bg ll-dest-img-bg--emerald"></div>
+                <div class="ll-dest-img-frame">
+                    <img src="https://images.unsplash.com/photo-1612862862126-865765df2ded?q=80&w=1074&auto=format&fit=crop"
+                        class="ll-dest-img" alt="Sigiriya Rock" />
+                </div>
+                <div class="ll-dest-img-tag">
+                    <i class="pi pi-map-marker mr-1 text-xs"></i> Cultural Triangle
+                </div>
+            </div>
+
+            <div class="ll-dest-content">
+                <div class="ll-dest-meta">
+                    <div class="ll-dest-meta-line ll-dest-meta-line--green"></div>
+                    <span class="ll-dest-meta-label">Cultural Triangle</span>
+                </div>
+                <h2 class="ll-dest-title">Sigiriya Rock</h2>
+                <p class="ll-dest-body">
+                    Rise above the jungle. This ancient monolith isn't just a rock —
+                    it's a testament to 5th-century genius.
+                    Skip the expensive "official guides" at the entrance.
+                </p>
+
+                <div class="ll-info-card">
+                    <div class="ll-info-card-top">
+                        <div>
+                            <p class="ll-info-label">Fair Price</p>
+                            <p class="ll-info-price">$30 <span class="ll-info-price-unit">/ person</span></p>
+                        </div>
+                        <div class="ll-info-icon ll-info-icon--green">
+                            <i class="pi pi-tag text-sm"></i>
+                        </div>
+                    </div>
+                    <div class="ll-alert ll-alert--rose">
+                        <i class="pi pi-exclamation-triangle mt-0.5 shrink-0"></i>
+                        <p>Ignore "helpers" near the stairs. They will charge you
+                            5,000 LKR for a "push".</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── ELLA ── -->
+        <div class="ll-dest-row ll-dest-row--reverse group">
+            <div class="ll-dest-img-wrap">
+                <div class="ll-dest-img-bg ll-dest-img-bg--amber"></div>
+                <div class="ll-dest-img-frame">
+                    <img src="https://images.unsplash.com/photo-1598955890270-d77cdb06d2bb?q=80&w=1170&auto=format&fit=crop"
+                        class="ll-dest-img" alt="Ella Village" />
+                </div>
+                <div class="ll-dest-img-tag ll-dest-img-tag--amber">
+                    <i class="pi pi-map-marker mr-1 text-xs"></i> Central Highlands
+                </div>
+            </div>
+
+            <div class="ll-dest-content">
+                <div class="ll-dest-meta">
+                    <div class="ll-dest-meta-line ll-dest-meta-line--amber"></div>
+                    <span class="ll-dest-meta-label ll-dest-meta-label--amber">Central Highlands</span>
+                </div>
+                <h2 class="ll-dest-title">Ella Village</h2>
+                <p class="ll-dest-body">
+                    Where the tea clouds touch the mountains. Ella is the soul
+                    of the island's nature. Best experienced by foot or local train.
+                </p>
+
+                <div class="ll-info-card">
+                    <div class="ll-info-card-top">
+                        <div>
+                            <p class="ll-info-label">Fair Price</p>
+                            <p class="ll-info-price">Free <span class="ll-info-price-unit">(Hiking)</span></p>
+                        </div>
+                        <div class="ll-info-icon ll-info-icon--amber">
+                            <i class="pi pi-check-circle text-sm"></i>
+                        </div>
+                    </div>
+                    <div class="ll-alert ll-alert--amber">
+                        <i class="pi pi-ticket mt-0.5 shrink-0"></i>
+                        <p>Train tickets to Kandy: Buy 2nd class (unreserved) for
+                            600 LKR. Don't pay 5k for resellers.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── KANDY ── -->
+        <div class="ll-dest-row group">
+            <div class="ll-dest-img-wrap">
+                <div class="ll-dest-img-bg ll-dest-img-bg--emerald"></div>
+                <div class="ll-dest-img-frame">
+                    <img src="https://images.unsplash.com/photo-1665849050430-5e8c16bacf7e?q=80&w=687&auto=format&fit=crop"
+                        class="ll-dest-img" alt="Temple of the Tooth" />
+                </div>
+                <div class="ll-dest-img-tag">
+                    <i class="pi pi-map-marker mr-1 text-xs"></i> Hill Country
+                </div>
+            </div>
+
+            <div class="ll-dest-content">
+                <div class="ll-dest-meta">
+                    <div class="ll-dest-meta-line ll-dest-meta-line--green"></div>
+                    <span class="ll-dest-meta-label">Hill Country</span>
+                </div>
+                <h2 class="ll-dest-title">Kandy: Temple of the Tooth</h2>
+                <p class="ll-dest-body ll-dest-body--italic">
+                    "Where history meets spirituality in the misty hills."
+                </p>
+
+                <div class="ll-info-card ll-info-card--plain">
+                    <p class="ll-info-label mb-1">Honest Tip</p>
+                    <p class="text-sm text-slate-600 leading-relaxed">
+                        The evening ceremony (Theva) is loud and crowded. For a
+                        peaceful visit, go at 5:30 AM. Dress code is strict:
+                        shoulders and knees <strong>must</strong> be covered
+                        (white clothes preferred but not mandatory).
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── MIRISSA ── -->
+        <div class="ll-dest-row ll-dest-row--reverse group">
+            <div class="ll-dest-img-wrap">
+                <div class="ll-dest-img-bg ll-dest-img-bg--amber"></div>
+                <div class="ll-dest-img-frame">
+                    <img src="https://images.unsplash.com/photo-1580910531902-1112518b26ea?q=80&w=735&auto=format&fit=crop"
+                        class="ll-dest-img" alt="Mirissa Beach" />
+                </div>
+                <div class="ll-dest-img-tag ll-dest-img-tag--amber">
+                    <i class="pi pi-map-marker mr-1 text-xs"></i> Southern Coast
+                </div>
+            </div>
+
+            <div class="ll-dest-content">
+                <div class="ll-dest-meta">
+                    <div class="ll-dest-meta-line ll-dest-meta-line--amber"></div>
+                    <span class="ll-dest-meta-label ll-dest-meta-label--amber">Southern Coast</span>
+                </div>
+                <h2 class="ll-dest-title">Mirissa Beach</h2>
+                <p class="ll-dest-body ll-dest-body--italic">
+                    "Golden sunsets and giants of the oceans."
+                </p>
+
+                <div class="ll-info-card ll-info-card--plain">
+                    <p class="ll-info-label mb-1">Fair Price Check</p>
+                    <p class="text-sm text-slate-600 leading-relaxed">
+                        Whale watching should cost around $40–$60. If it's too
+                        cheap, the boat is likely overcrowded and lacks safety gear.
+                        Look for <em>Raja &amp; the Whales</em> for ethical sightings.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     FINAL CTA
+═══════════════════════════════════════════════ -->
+<section class="ll-cta-outer">
+    <div class="ll-cta-glow-outer"></div>
+
+    <div class="max-w-6xl mx-auto px-6 py-20 relative z-10">
+        <div class="ll-cta-box">
+            <!-- inner orbs -->
+            <div class="ll-cta-orb ll-cta-orb-1"></div>
+            <div class="ll-cta-orb ll-cta-orb-2"></div>
+
+            <div class="relative z-10 text-center">
+                <div class="ll-cta-icon-wrap">
+                    <i class="pi pi-map-marker text-2xl text-amber-400"></i>
+                </div>
+
+                <h2 class="ll-cta-title">
+                    Want the
+                    <span class="ll-cta-title-accent"> Full Experience?</span>
+                </h2>
+
+                <p class="ll-cta-body">
+                    Join our community to unlock the
+                    <span class="text-white font-semibold">Interactive Live Map</span>,
+                    access our list of verified drivers, and receive real-time
+                    price alerts from other travellers.
+                </p>
+
+                <div class="flex flex-col md:flex-row gap-4 justify-center items-center mt-10">
+                    <a routerLink="/signin" class="ll-btn-cta">
+                        Join LookLanka Free
+                        <i class="pi pi-arrow-right ml-2 text-sm"></i>
+                    </a>
+                    <a routerLink="/signin" class="ll-btn-ghost">
+                        See All Perks
+                    </a>
+                </div>
+
+                <div class="ll-cta-perks">
+                    <span><i class="pi pi-check-circle mr-1"></i> Live Map</span>
+                    <span class="ll-perk-divider">·</span>
+                    <span><i class="pi pi-check-circle mr-1"></i> Driver List</span>
+                    <span class="ll-perk-divider">·</span>
+                    <span><i class="pi pi-check-circle mr-1"></i> No Ads</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
 <app-footer />

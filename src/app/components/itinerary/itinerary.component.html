@@ -1,4 +1,4 @@
-<app-navbar />
+<!-- <app-navbar />
 <section class="relative pt-32 pb-20 bg-slate-50 min-h-screen overflow-hidden">
     <div class="absolute top-0 -left-20 w-96 h-96 bg-emerald-100 rounded-full blur-[120px] opacity-60"></div>
 
@@ -165,4 +165,218 @@
     </div>
 </div>
 }
+<app-footer /> -->
+
+<app-navbar />
+
+<!-- ═══════════════════════════════════════════════
+     DASHBOARD HEADER
+═══════════════════════════════════════════════ -->
+<section class="ll-dashboard-hero">
+    <div class="ll-hero-grain"></div>
+    <div class="ll-orb ll-orb-1"></div>
+    <div class="ll-orb ll-orb-2"></div>
+
+    <div class="max-w-6xl mx-auto px-6 relative z-10">
+        <div class="ll-dashboard-topbar">
+
+            <!-- User info -->
+            <div class="ll-user-info">
+                <div class="ll-avatar-wrap">
+                    <img [src]="authService.currentUser()?.photoURL" alt="avatar" class="ll-avatar" />
+                    <span class="ll-avatar-status"></span>
+                </div>
+                <div>
+                    <p class="ll-greeting-label">Ayubowan 👋</p>
+                    <h1 class="ll-greeting-name">
+                        {{ authService.currentUser()?.displayName?.split(' ')?.at(0) }}
+                    </h1>
+                    <p class="ll-greeting-sub">Your Sri Lankan adventure starts here.</p>
+                </div>
+            </div>
+
+            <!-- CTA -->
+            <a routerLink="/map-explorer" class="ll-btn-cta">
+                <i class="pi pi-plus mr-2 text-sm"></i>
+                New Plan
+            </a>
+        </div>
+    </div>
+
+    <div class="ll-wave">
+        <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
+            <path fill="#f8f6f1"
+                d="M0,80L60,74.7C120,69,240,59,360,64C480,69,600,91,720,96C840,101,960,91,1080,80C1200,69,1320,69,1380,69.3L1440,69L1440,120L0,120Z" />
+        </svg>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     MAIN CONTENT
+═══════════════════════════════════════════════ -->
+<section class="ll-section-cream py-14">
+    <div class="max-w-6xl mx-auto px-6">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-7">
+
+            <!-- ══ LEFT — Itineraries ══ -->
+            <div class="lg:col-span-2">
+                <div class="ll-main-card">
+
+                    <div class="ll-main-card-header">
+                        <div>
+                            <h2 class="ll-card-title">Your Saved Itineraries</h2>
+                            <p class="ll-card-subtitle">All your trips in one place</p>
+                        </div>
+                        <a routerLink="/map-explorer" class="ll-btn-sm">
+                            <i class="pi pi-plus text-xs mr-1"></i> Add
+                        </a>
+                    </div>
+
+                    <!-- Loading -->
+                    @if (isLoading()) {
+                    <div class="ll-loading-state">
+                        <div class="ll-spinner"></div>
+                        <p class="ll-loading-text">Fetching your adventures…</p>
+                    </div>
+                    } @else {
+
+                    <!-- Trips list -->
+                    @if (trips().length > 0) {
+                    <div class="space-y-4">
+                        @for (trip of trips(); track trip.id) {
+                        <div class="ll-trip-card group">
+                            <div class="ll-trip-header">
+                                <div>
+                                    <span class="ll-trip-badge">Itinerary</span>
+                                    <h3 class="ll-trip-title">
+                                        Trip to {{ trip.stops[0]?.name }} & More
+                                    </h3>
+                                    <p class="ll-trip-date">
+                                        <i class="pi pi-calendar text-xs mr-1"></i>
+                                        {{ trip.createdAt?.toDate() | date:'mediumDate' }}
+                                    </p>
+                                </div>
+
+                                <button (click)="removeTrip(trip.id)" class="ll-delete-btn" title="Delete trip">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="2" stroke="currentColor" class="ll-delete-icon">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                    </svg>
+                                </button>
+                            </div>
+
+                            <div class="ll-stop-chips">
+                                @for (stop of trip.stops; track $index) {
+                                <span class="ll-stop-chip">
+                                    <span class="ll-stop-dot"></span>
+                                    {{ stop.name }}
+                                </span>
+                                }
+                            </div>
+                        </div>
+                        }
+                    </div>
+
+                    } @else {
+                    <!-- Empty state -->
+                    <div class="ll-empty-state">
+                        <div class="ll-empty-icon">
+                            <i class="pi pi-map text-3xl text-slate-300"></i>
+                        </div>
+                        <p class="ll-empty-title">No trips planned yet</p>
+                        <p class="ll-empty-body">Start exploring Sri Lanka and save your first itinerary.</p>
+                        <a routerLink="/map-explorer" class="ll-btn-cta ll-btn-cta--sm mt-4">
+                            Browse Destinations
+                        </a>
+                    </div>
+                    }
+                    }
+
+                </div>
+            </div>
+
+            <!-- ══ RIGHT — Sidebar ══ -->
+            <div class="space-y-5">
+
+                <!-- Verified Drivers -->
+                <div class="ll-sidebar-card ll-sidebar-card--dark">
+                    <div class="ll-sidebar-dark-orb"></div>
+                    <div class="relative z-10">
+                        <div class="ll-sidebar-icon ll-sidebar-icon--teal">
+                            <i class="pi pi-shield text-lg text-emerald-400"></i>
+                        </div>
+                        <h3 class="ll-sidebar-title ll-sidebar-title--light mt-4">Verified Drivers</h3>
+                        <p class="ll-sidebar-body ll-sidebar-body--muted mt-1">
+                            Access our private list of honest drivers with fixed rates.
+                        </p>
+                        <a routerLink="/drivers" class="ll-btn-sidebar mt-5">
+                            View List <i class="pi pi-arrow-right ml-2 text-xs"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Trains -->
+                <div class="ll-sidebar-card ll-sidebar-card--white group">
+                    <div class="ll-sidebar-icon ll-sidebar-icon--blue">
+                        <i class="pi pi-directions text-lg text-blue-500"></i>
+                    </div>
+                    <h3 class="ll-sidebar-title mt-4">Trains</h3>
+                    <p class="ll-sidebar-body mt-1">
+                        Book seats for the Kandy–Ella scenic route 30 days in advance.
+                    </p>
+                    <a href="https://seatreservation.railway.gov.lk/" target="_blank"
+                        class="ll-sidebar-link ll-sidebar-link--blue mt-5">
+                        Check Schedules <i class="pi pi-arrow-right text-[10px] ml-1"></i>
+                    </a>
+                </div>
+
+                <!-- Bus Finder -->
+                <div class="ll-sidebar-card ll-sidebar-card--white group">
+                    <div class="ll-sidebar-icon ll-sidebar-icon--amber">
+                        <i class="pi pi-map-marker text-lg text-amber-500"></i>
+                    </div>
+                    <h3 class="ll-sidebar-title mt-4">Bus Finder</h3>
+                    <p class="ll-sidebar-body mt-1">
+                        Fastest way between cities. Pay directly on board.
+                    </p>
+                    <a href="https://www.ntc.gov.lk/" target="_blank"
+                        class="ll-sidebar-link ll-sidebar-link--amber mt-5">
+                        View Routes <i class="pi pi-arrow-right text-[10px] ml-1"></i>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     DELETE MODAL
+═══════════════════════════════════════════════ -->
+@if (isModalOpen()) {
+<div class="ll-modal-overlay" (click)="closeModal()">
+    <div class="ll-modal-box" (click)="$event.stopPropagation()">
+
+        <div class="ll-modal-icon">
+            <i class="pi pi-exclamation-triangle text-rose-500 text-2xl"></i>
+        </div>
+
+        <h3 class="ll-modal-title">Delete itinerary?</h3>
+        <p class="ll-modal-body">
+            This action is permanent. Your itinerary will be removed and cannot be recovered.
+        </p>
+
+        <div class="ll-modal-actions">
+            <button (click)="closeModal()" class="ll-modal-btn ll-modal-btn--cancel">
+                Cancel
+            </button>
+            <button (click)="confirmDelete()" class="ll-modal-btn ll-modal-btn--delete">
+                <i class="pi pi-trash mr-2 text-sm"></i> Delete
+            </button>
+        </div>
+
+    </div>
+</div>
+}
+
 <app-footer />

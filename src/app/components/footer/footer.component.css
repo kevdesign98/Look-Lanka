@@ -1,0 +1,295 @@
+/* ================================================================
+   LookLanka — footer.component.css
+   Dark forest footer coerente col design system
+   ================================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600;1,700&family=Outfit:wght@300;400;500;600;700&display=swap');
+
+:host {
+    --ll-forest: #1a4a38;
+    --ll-forest-dk: #0d2b20;
+    --ll-teal: #0fa37f;
+    --ll-teal-lt: #19d4a3;
+    --ll-amber: #f5a623;
+    --ll-text: #18212e;
+    --ll-muted: #6b7280;
+    --ff-display: 'Cormorant Garamond', serif;
+    --ff-body: 'Outfit', sans-serif;
+    display: block;
+}
+
+:host * {
+    font-family: var(--ff-body);
+}
+
+/* ════════════════════════════════════
+   FOOTER SHELL
+════════════════════════════════════ */
+.ll-footer {
+    position: relative;
+    background: #0a1a12;
+    padding: 5rem 0 2.5rem;
+    overflow: hidden;
+}
+
+/* Grain */
+.ll-footer-grain {
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    background-size: 200px;
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+/* Orb decorativo */
+.ll-footer-orb {
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(15, 163, 127, 0.08), transparent 70%);
+    bottom: -150px;
+    right: -80px;
+    filter: blur(60px);
+    pointer-events: none;
+}
+
+/* ════════════════════════════════════
+   GRID
+════════════════════════════════════ */
+.ll-footer-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    padding-bottom: 3.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+@media (min-width: 640px) {
+    .ll-footer-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    .ll-footer-grid {
+        grid-template-columns: 1.6fr 1fr 1fr 1.4fr;
+        gap: 3rem;
+    }
+}
+
+/* ════════════════════════════════════
+   BRAND COL
+════════════════════════════════════ */
+.ll-footer-brand {}
+
+.ll-footer-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 1rem;
+}
+
+.ll-footer-logo-icon {
+    font-size: 1.25rem;
+    line-height: 1;
+}
+
+.ll-footer-logo-text {
+    font-family: var(--ff-display);
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: -0.02em;
+}
+
+.ll-footer-tagline {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.38);
+    line-height: 1.75;
+    font-weight: 300;
+    max-width: 22rem;
+}
+
+/* Social */
+.ll-social-row {
+    display: flex;
+    gap: 0.6rem;
+    margin-top: 1.5rem;
+}
+
+.ll-social-btn {
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 0.65rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.4);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+}
+
+.ll-social-btn:hover {
+    background: var(--ll-teal);
+    border-color: var(--ll-teal);
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 14px rgba(15, 163, 127, 0.35);
+}
+
+/* ════════════════════════════════════
+   NAV COLS
+════════════════════════════════════ */
+.ll-footer-heading {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.28);
+    margin-bottom: 1.25rem;
+}
+
+.ll-footer-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.ll-footer-list a {
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.5);
+    text-decoration: none;
+    transition: color 0.18s, padding-left 0.18s;
+    display: inline-block;
+}
+
+.ll-footer-list a:hover {
+    color: #fff;
+    padding-left: 0.35rem;
+}
+
+/* ════════════════════════════════════
+   NEWSLETTER
+════════════════════════════════════ */
+.ll-footer-newsletter-sub {
+    font-size: 0.78rem;
+    color: rgba(255, 255, 255, 0.35);
+    line-height: 1.65;
+    font-weight: 300;
+    margin-bottom: 0.85rem;
+}
+
+.ll-newsletter-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.ll-newsletter-input {
+    width: 100%;
+    padding: 0.65rem 3rem 0.65rem 0.9rem;
+    font-size: 0.82rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1.5px solid rgba(255, 255, 255, 0.1);
+    border-radius: 0.85rem;
+    color: rgba(255, 255, 255, 0.8);
+    outline: none;
+    font-family: var(--ff-body);
+    transition: border-color 0.2s, background 0.2s;
+}
+
+.ll-newsletter-input::placeholder {
+    color: rgba(255, 255, 255, 0.22);
+}
+
+.ll-newsletter-input:focus {
+    border-color: var(--ll-teal);
+    background: rgba(15, 163, 127, 0.06);
+}
+
+.ll-newsletter-btn {
+    position: absolute;
+    right: 0.4rem;
+    width: 2rem;
+    height: 2rem;
+    background: var(--ll-teal);
+    border: none;
+    border-radius: 0.6rem;
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.ll-newsletter-btn:hover {
+    background: var(--ll-teal-lt);
+    transform: scale(1.08);
+}
+
+.ll-newsletter-note {
+    font-size: 0.68rem;
+    color: rgba(255, 255, 255, 0.2);
+    margin-top: 0.6rem;
+    letter-spacing: 0.02em;
+}
+
+/* ════════════════════════════════════
+   BOTTOM BAR
+════════════════════════════════════ */
+.ll-footer-bottom {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding-top: 2rem;
+    text-align: center;
+}
+
+@media (min-width: 768px) {
+    .ll-footer-bottom {
+        flex-direction: row;
+        justify-content: space-between;
+        text-align: left;
+    }
+}
+
+.ll-footer-copy {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.25);
+}
+
+.ll-footer-copy-dim {
+    opacity: 0.6;
+}
+
+.ll-footer-legal {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.ll-footer-legal a {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.25);
+    text-decoration: none;
+    transition: color 0.18s;
+}
+
+.ll-footer-legal a:hover {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.ll-footer-dot {
+    color: rgba(255, 255, 255, 0.12);
+    font-size: 0.6rem;
+}

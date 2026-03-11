@@ -1,92 +1,132 @@
 <app-navbar />
 
-<section class="relative pt-32 pb-20 bg-slate-50 min-h-screen overflow-hidden">
-    <div class="absolute top-0 -right-20 w-96 h-96 bg-emerald-100 rounded-full blur-[120px] opacity-40"></div>
+<!-- ═══════════════════════════════════════════════
+     HERO
+═══════════════════════════════════════════════ -->
+<section class="ll-profile-hero">
+    <div class="ll-hero-grain"></div>
+    <div class="ll-orb ll-orb-1"></div>
+    <div class="ll-orb ll-orb-2"></div>
 
     <div class="max-w-6xl mx-auto px-6 relative z-10">
-        <h1 class="text-4xl font-serif font-bold text-slate-900 mb-12">Travel Profile</h1>
+        <span class="ll-eyebrow">👤 Account</span>
+        <h1 class="ll-hero-title">Travel <span class="ll-hero-title-accent">Profile</span></h1>
+    </div>
 
+    <div class="ll-wave">
+        <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
+            <path fill="#f8f6f1"
+                d="M0,80L60,74.7C120,69,240,59,360,64C480,69,600,91,720,96C840,101,960,91,1080,80C1200,69,1320,69,1380,69.3L1440,69L1440,120L0,120Z" />
+        </svg>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     CONTENT
+═══════════════════════════════════════════════ -->
+<section class="ll-section-cream py-16">
+    <div class="max-w-6xl mx-auto px-6">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
 
-            <div
-                class="md:col-span-2 bg-white rounded-[3rem] p-10 shadow-xl shadow-slate-200/50 border border-slate-100 flex flex-col md:flex-row items-center gap-8">
-                <img [src]="authService.currentUser()?.photoURL"
-                    class="w-32 h-32 rounded-[2.5rem] border-4 border-white shadow-2xl rotate-2">
-                <div class="text-center md:text-left">
-                    <h2 class="text-3xl font-bold text-slate-800">{{ authService.currentUser()?.displayName }}</h2>
-                    <p class="text-slate-500 mb-6">{{ authService.currentUser()?.email }}</p>
-                    <div class="flex gap-3 justify-center md:justify-start">
-                        <span
-                            class="px-4 py-2 bg-emerald-50 text-emerald-600 rounded-xl text-xs font-bold uppercase tracking-wider">Verified
-                            Traveler</span>
+            <!-- ── User card ── -->
+            <div class="ll-user-card md:col-span-2">
+                <div class="ll-user-avatar-wrap">
+                    <img [src]="authService.currentUser()?.photoURL" alt="avatar" class="ll-user-avatar" />
+                    <span class="ll-user-avatar-status"></span>
+                </div>
+                <div class="ll-user-info">
+                    <h2 class="ll-user-name">{{ authService.currentUser()?.displayName }}</h2>
+                    <p class="ll-user-email">{{ authService.currentUser()?.email }}</p>
+                    <div class="flex flex-wrap gap-2 mt-4">
+                        <span class="ll-badge-verified">
+                            <i class="pi pi-check-circle text-xs mr-1"></i>
+                            Verified Traveller
+                        </span>
+                        <span class="ll-badge-member">
+                            <i class="pi pi-star text-xs mr-1"></i>
+                            Community Member
+                        </span>
                     </div>
                 </div>
             </div>
 
-            <div
-                class="bg-slate-900 rounded-[3rem] p-8 text-white shadow-2xl flex flex-col justify-between relative overflow-hidden">
-                <div class="relative z-10">
-                    <h3 class="text-xl font-bold mb-2">Look Lanka App</h3>
-                    <p class="text-slate-400 text-sm font-light">Add to home screen for better experience.</p>
+            <!-- ── PWA install ── -->
+            <div class="ll-pwa-card">
+                <div class="ll-pwa-orb"></div>
+                <div class="relative z-10 flex flex-col h-full justify-between">
+                    <div>
+                        <div class="ll-pwa-icon">
+                            <i class="pi pi-mobile text-2xl text-emerald-400"></i>
+                        </div>
+                        <h3 class="ll-pwa-title mt-4">LookLanka App</h3>
+                        <p class="ll-pwa-body mt-1">
+                            Add to home screen for a faster, offline-ready experience.
+                        </p>
+                    </div>
+                    <button (click)="installPWA()" class="ll-btn-pwa mt-6">
+                        <i class="pi pi-download mr-2 text-sm"></i>
+                        Install App
+                    </button>
                 </div>
-                <button (click)="installPWA()"
-                    class="relative z-10 mt-6 w-full py-4 bg-emerald-500 text-white font-bold rounded-2xl hover:bg-emerald-400 transition-all shadow-lg shadow-emerald-900/40">
-                    Install App
-                </button>
             </div>
 
-            <div
-                class="bg-white rounded-[3rem] p-8 shadow-xl shadow-slate-200/50 border border-slate-100 group hover:scale-[1.02] transition-all">
-                <div
-                    class="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center text-blue-500 mb-6 group-hover:bg-blue-500 group-hover:text-white transition-all">
-                    <i class="pi pi-directions"></i>
+            <!-- ── Trains ── -->
+            <div class="ll-resource-card group">
+                <div class="ll-resource-icon ll-resource-icon--blue">
+                    <i class="pi pi-directions text-blue-500 text-lg"></i>
                 </div>
-                <h3 class="text-xl font-bold text-slate-800 mb-2">Trains</h3>
-                <p class="text-slate-500 text-xs mb-6">Book the scenic Kandy-Ella route.</p>
+                <h3 class="ll-resource-title mt-4">Trains</h3>
+                <p class="ll-resource-body mt-1">Book the scenic Kandy–Ella route.</p>
                 <a href="https://seatreservation.railway.gov.lk/" target="_blank"
-                    class="text-blue-500 font-bold text-sm">Check Schedules →</a>
+                    class="ll-resource-link ll-resource-link--blue mt-5">
+                    Check Schedules <i class="pi pi-arrow-right text-xs ml-1"></i>
+                </a>
             </div>
 
-            <div
-                class="bg-white rounded-[3rem] p-8 shadow-xl shadow-slate-200/50 border border-slate-100 group hover:scale-[1.02] transition-all">
-                <div
-                    class="w-12 h-12 bg-amber-50 rounded-2xl flex items-center justify-center text-amber-500 mb-6 group-hover:bg-amber-500 group-hover:text-white transition-all">
-                    <i class="pi pi-map-marker"></i>
+            <!-- ── Buses ── -->
+            <div class="ll-resource-card group">
+                <div class="ll-resource-icon ll-resource-icon--amber">
+                    <i class="pi pi-map-marker text-amber-500 text-lg"></i>
                 </div>
-                <h3 class="text-xl font-bold text-slate-800 mb-2">Buses</h3>
-                <p class="text-slate-500 text-xs mb-6">Explore local routes across the island.</p>
-                <a href="https://www.ntc.gov.lk/" target="_blank" class="text-amber-500 font-bold text-sm">View Routes
-                    →</a>
+                <h3 class="ll-resource-title mt-4">Buses</h3>
+                <p class="ll-resource-body mt-1">Explore local routes across the island.</p>
+                <a href="https://www.ntc.gov.lk/" target="_blank" class="ll-resource-link ll-resource-link--amber mt-5">
+                    View Routes <i class="pi pi-arrow-right text-xs ml-1"></i>
+                </a>
             </div>
 
-            <div class="bg-white rounded-[3rem] p-8 shadow-xl shadow-slate-200/50 border border-slate-100">
-                <h3 class="text-xl font-bold text-slate-800 mb-6">Quick Converter</h3>
+            <!-- ── Currency Converter ── -->
+            <div class="ll-converter-card">
+                <h3 class="ll-converter-title">Quick Converter</h3>
+                <p class="ll-converter-sub">LKR → your currency</p>
 
-                <div class="relative mb-6">
-                    <label class="text-[10px] uppercase font-bold text-slate-400 ml-4 mb-1 block">Amount in LKR
-                        (Rupie)</label>
-                    <div class="relative">
+                <!-- Input -->
+                <div class="ll-converter-input-wrap mt-5">
+                    <label class="ll-converter-label">Amount in LKR</label>
+                    <div class="relative mt-1">
                         <input type="number" (input)="onAmountChange($event)" placeholder="e.g. 5000"
-                            class="w-full p-6 bg-slate-50 border-2 border-transparent focus:border-emerald-500 rounded-[2rem] text-2xl font-bold text-slate-800 transition-all outline-none">
-                        <span class="absolute right-6 top-1/2 -translate-y-1/2 text-slate-400 font-bold">LKR</span>
+                            class="ll-converter-input" />
+                        <span class="ll-converter-input-badge">LKR</span>
                     </div>
                 </div>
 
-                <div class="p-6 bg-emerald-50 rounded-[2rem] border border-emerald-100 mb-8 text-center">
-                    <p class="text-xs text-emerald-600 font-bold uppercase tracking-widest mb-1">Estimated Cost</p>
-                    <h2 class="text-4xl font-black text-emerald-700">
+                <!-- Result -->
+                <div class="ll-converter-result mt-4">
+                    <p class="ll-converter-result-label">Estimated Cost</p>
+                    <h2 class="ll-converter-result-value">
                         {{ selectedCurrency() === 'EUR' ? '€' :
                         selectedCurrency() === 'USD' ? '$' :
                         selectedCurrency() === 'GBP' ? '£' : 'Rs' }}
                         {{ convertedAmount() }}
                     </h2>
+                    <p class="ll-converter-result-currency">{{ selectedCurrency() }}</p>
                 </div>
 
-                <div class="flex justify-between gap-2">
+                <!-- Currency tabs -->
+                <div class="ll-currency-tabs mt-4">
                     @for (curr of currencies; track curr.code) {
-                    <button (click)="updateCurrency(curr.code)"
-                        [class]="selectedCurrency() === curr.code ? 'bg-emerald-600 text-white shadow-lg' : 'bg-slate-100 text-slate-400'"
-                        class="flex-1 py-3 rounded-xl text-xs font-bold transition-all uppercase">
+                    <button (click)="updateCurrency(curr.code)" class="ll-currency-tab"
+                        [class.ll-currency-tab--active]="selectedCurrency() === curr.code">
                         {{ curr.code }}
                     </button>
                     }
@@ -94,7 +134,6 @@
             </div>
 
         </div>
-
     </div>
 </section>
 
