@@ -596,3 +596,170 @@
 .ll-perk-divider {
     color: rgba(255, 255, 255, 0.2);
 }
+
+/* Stile per i numeri delle tappe */
+.ll-step-number {
+    position: absolute;
+    top: -1.5rem;
+    left: -1.5rem;
+    width: 4rem;
+    height: 4rem;
+    background: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--ff-display);
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--ll-teal);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    z-index: 30;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.ll-dest-row--reverse .ll-step-number {
+    left: auto;
+    right: -1.5rem;
+    color: var(--ll-amber);
+}
+
+/* Animazione serpentone */
+.ll-snake-path {
+    stroke-dashoffset: 1000;
+    stroke-dasharray: 1000;
+    animation: draw-snake 15s linear infinite;
+}
+
+@keyframes draw-snake {
+    from {
+        stroke-dashoffset: 2000;
+    }
+
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+/* --- Scam Guide Styles --- */
+.ll-scam-card {
+    background: #ffffff;
+    padding: 2.5rem;
+    border-radius: 2.5rem;
+    border: 1px solid rgba(0, 0, 0, 0.03);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.04);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+}
+
+.ll-scam-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 50px rgba(225, 29, 72, 0.1);
+    /* Glow rose leggero al hover */
+    border-color: rgba(225, 29, 72, 0.1);
+}
+
+.ll-scam-icon-wrap {
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    transition: transform 0.5s ease;
+}
+
+.ll-scam-card:hover .ll-scam-icon-wrap {
+    transform: rotate(10deg) scale(1.1);
+}
+
+/* Animazione per l'eyebrow scam */
+.text-rose-500 {
+    animation: pulse-soft 2s infinite;
+}
+
+@keyframes pulse-soft {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.7;
+    }
+}
+
+/* --- Food Section Styles --- */
+.ll-food-item {
+    display: flex;
+    gap: 1.5rem;
+    padding: 2rem;
+    background: #ffffff;
+    border-radius: 2rem;
+    border: 1px solid rgba(0, 0, 0, 0.03);
+    transition: all 0.3s ease;
+    align-items: center;
+}
+
+.ll-food-item:hover {
+    background: #fff;
+    box-shadow: 0 15px 40px rgba(245, 166, 35, 0.08);
+    border-color: rgba(245, 166, 35, 0.2);
+    transform: scale(1.02);
+}
+
+.ll-food-img {
+    width: 120px;
+    height: 120px;
+    border-radius: 1.5rem;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.ll-food-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.ll-food-item:hover .ll-food-img img {
+    transform: scale(1.1);
+}
+
+.ll-food-price {
+    font-family: var(--ff-body);
+    font-weight: 700;
+    color: var(--ll-teal);
+    font-size: 1.1rem;
+    background: rgba(15, 163, 127, 0.05);
+    padding: 0.4rem 0.8rem;
+    border-radius: 0.75rem;
+}
+
+.ll-tag-sm {
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.3rem 0.6rem;
+    border-radius: 0.5rem;
+}
+
+@media (max-width: 640px) {
+    .ll-food-item {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .ll-food-img {
+        width: 100%;
+        height: 180px;
+    }
+}
