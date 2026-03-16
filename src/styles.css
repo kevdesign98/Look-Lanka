@@ -1,7 +1,9 @@
 @import "https://js.arcgis.com/5.0/esri/themes/light/main.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 
 html.lenis {
     height: auto;

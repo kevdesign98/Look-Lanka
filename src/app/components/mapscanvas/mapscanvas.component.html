@@ -1,56 +1,115 @@
 <app-navbar />
-<div class="flex flex-col w-full h-[calc(100vh-80px)] bg-slate-100 p-0 md:p-6 md:pt-2">
-    <div class="relative w-full h-full overflow-hidden rounded-none md:rounded-[40px] shadow-2xl bg-slate-200">
 
+<div class="flex flex-col md:flex-row w-full h-[calc(100vh-80px)] bg-slate-100 overflow-hidden">
+
+    <div class="flex-1 h-full relative border-r border-slate-200">
         <div #mapViewNode id="mapViewNode" class="w-full h-full"></div>
 
         <div
-            class="absolute z-10 inset-x-4 bottom-10 md:inset-x-auto md:left-8 md:top-1/2 md:-translate-y-1/2 w-auto md:w-80">
-            <div class="bg-white/90 backdrop-blur-xl p-6 rounded-[32px] shadow-2xl border border-white/50">
-                <div class="flex items-center justify-between mb-4">
-                    <div>
-                        <h2 class="text-xl font-bold text-slate-800 italic leading-tight">Look Lanka</h2>
-                        <p class="text-[10px] text-emerald-600 uppercase tracking-widest font-bold">Your Itinerary
-                        </p>
-                    </div>
-                    <span class="bg-emerald-100 text-emerald-700 text-[10px] px-2 py-1 rounded-full font-bold">
-                        {{ selectedLocations().length }} stage
-                    </span>
+            class="absolute bottom-6 left-6 bg-white/80 backdrop-blur-md p-3 rounded-2xl shadow-lg border border-white hidden md:block">
+            <div class="flex gap-4">
+                <div class="flex items-center gap-1.5 text-[9px] font-bold uppercase text-slate-600">
+                    <span class="w-2 h-2 rounded-full bg-[#10b981]"></span> Culture
                 </div>
-
-                <div class="space-y-2 max-h-[300px] overflow-y-auto pr-1 custom-scrollbar">
-                    @for (loc of selectedLocations(); track loc.id) {
-                    <div
-                        class="group flex items-center justify-between p-3 bg-white/70 hover:bg-white rounded-2xl shadow-sm border border-white/50 transition-all animate-in">
-                        <div class="flex flex-col overflow-hidden mr-2">
-                            <span class="text-xs font-bold text-slate-700 truncate">{{ loc.name }}</span>
-                            <span class="text-[9px] text-slate-400">Stage confirmed</span>
-                        </div>
-
-                        <button (click)="removeFromTrip(loc.id)"
-                            class="flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-xl bg-red-50 text-red-500 hover:bg-red-500 hover:text-white transition-all font-bold">
-                            &times;
-                        </button>
-                    </div>
-                    } @empty {
-                    <div class="p-8 border-2 border-dashed border-slate-300 rounded-[24px] text-center bg-slate-50/50">
-                        <i class="pi pi-map-marker text-slate-300 mb-2 block text-xl"></i>
-                        <p class="text-[11px] text-slate-400 leading-relaxed font-medium">
-                            Click on the map to<br>add a destination
-                        </p>
-                    </div>
-                    }
+                <div class="flex items-center gap-1.5 text-[9px] font-bold uppercase text-slate-600">
+                    <span class="w-2 h-2 rounded-full bg-[#f97316]"></span> Food
                 </div>
-
-                @if (selectedLocations().length > 0) {
-                <button (click)="confirmTrip()"
-                    class="w-full mt-5 py-4 bg-slate-900 hover:bg-emerald-600 text-white text-xl font-bold rounded-2xl transition-all shadow-xl active:scale-95 flex items-center justify-center gap-2 group">
-                    <i class="pi pi-check-circle group-hover:scale-110 transition-transform"></i>
-                    Confirm Trip
-                </button>
-                }
+                <div class="flex items-center gap-1.5 text-[9px] font-bold uppercase text-slate-600">
+                    <span class="w-2 h-2 rounded-full bg-[#006dfa]"></span> Trip
+                </div>
             </div>
         </div>
     </div>
+
+    <div
+        class="w-full md:w-[400px] lg:w-[480px] h-full overflow-y-auto flex-shrink-0 bg-white shadow-[-10px_0_15px_-3px_rgba(0,0,0,0.05)] z-20 custom-scrollbar">
+
+        <div class="p-6 border-b border-slate-50 bg-slate-50/50">
+            <h2 class="text-2xl font-bold text-slate-800 italic">Look <span class="text-emerald-600">Lanka</span></h2>
+            <p class="text-slate-400 text-[11px] uppercase tracking-widest font-bold mt-1">Honest Travel Planner</p>
+        </div>
+
+        <div class="py-6 border-b border-slate-50">
+            <div class="px-6 mb-4 flex items-center justify-between">
+                <h3 class="font-bold text-slate-700 text-sm italic">Featured <span
+                        class="text-emerald-600">Beaches</span></h3>
+            </div>
+
+            <p-carousel [value]="honestGuide.beaches" [numVisible]="2" [numScroll]="1" [circular]="true"
+                [responsiveOptions]="[{breakpoint: '1024px', numVisible: 1, numScroll: 1}]" [autoplayInterval]="4000"
+                indicatorStyleClass="hidden">
+
+                <ng-template let-beach #item>
+                    <div (click)="goToPoint(beach.lat, beach.lng)"
+                        class="mx-2 cursor-pointer group relative rounded-[20px] overflow-hidden shadow-sm border border-slate-100">
+                        <div class="relative h-32">
+                            <img [src]="beach.img"
+                                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent">
+                            </div>
+                            <div class="absolute bottom-2 left-3">
+                                <span class="text-white font-bold text-[11px]">{{beach.name}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </ng-template>
+            </p-carousel>
+        </div>
+
+        <div class="p-6">
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="text-lg font-bold text-slate-800 italic">Plan Your Trip</h3>
+                <span class="bg-emerald-100 text-emerald-700 text-[10px] px-2 py-1 rounded-full font-bold">
+                    {{ selectedLocations().length }} STAGES
+                </span>
+            </div>
+
+            <div class="space-y-3">
+                @for (loc of selectedLocations(); track loc.id) {
+                <div
+                    class="group flex items-center justify-between p-4 bg-slate-50 hover:bg-white rounded-2xl border border-slate-100 transition-all shadow-sm hover:shadow-md">
+                    <div class="flex items-center gap-3 overflow-hidden">
+                        <div
+                            class="flex-shrink-0 w-8 h-8 rounded-full bg-white flex items-center justify-center text-[10px] font-bold text-emerald-600 border border-emerald-100">
+                            {{$index + 1}}
+                        </div>
+                        <div class="flex flex-col truncate">
+                            <span class="text-xs font-bold text-slate-700 truncate">{{ loc.name }}</span>
+                            <span class="text-[9px] text-slate-400">Ready to explore</span>
+                        </div>
+                    </div>
+                    <button (click)="removeFromTrip(loc.id)"
+                        class="w-8 h-8 flex items-center justify-center rounded-xl bg-red-50 text-red-400 hover:bg-red-500 hover:text-white transition-all">
+                        <i class="pi pi-trash text-xs"></i>
+                    </button>
+                </div>
+                } @empty {
+                <div class="py-12 text-center border-2 border-dashed border-slate-100 rounded-[32px] bg-slate-50/30">
+                    <div
+                        class="w-12 h-12 bg-white rounded-full flex items-center justify-center mx-auto mb-3 shadow-sm">
+                        <i class="pi pi-map-marker text-emerald-500"></i>
+                    </div>
+                    <p class="text-[11px] text-slate-400 font-bold uppercase tracking-wider">
+                        Select locations<br>on the map
+                    </p>
+                </div>
+                }
+            </div>
+
+            @if (selectedLocations().length > 0) {
+            <div class="mt-8 space-y-3">
+                <button (click)="confirmTrip()"
+                    class="w-full py-4 bg-emerald-600 hover:bg-emerald-700 text-white text-base font-bold rounded-2xl transition-all shadow-lg shadow-emerald-200 flex items-center justify-center gap-2 group">
+                    <i class="pi pi-check-circle group-hover:scale-110 transition-transform"></i>
+                    Save Itinerary
+                </button>
+                <p class="text-[10px] text-slate-400 text-center px-4">
+                    Our guide includes honest pricing and scam alerts for each selected spot.
+                </p>
+            </div>
+            }
+        </div>
+    </div>
+
 </div>
 <app-footer />
