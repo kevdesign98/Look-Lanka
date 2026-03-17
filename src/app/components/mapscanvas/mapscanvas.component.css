@@ -54,3 +54,46 @@
     -ms-overflow-style: none;
     scrollbar-width: none;
 }
+
+/* Arrotonda le immagini dentro i popup di ArcGIS */
+.esri-popup__content img {
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    margin-top: 10px;
+}
+
+/* Stile per il testo del popup */
+.esri-popup__header-title {
+    font-weight: bold !important;
+    color: #0f172a !important;
+}
+
+/* Rende la transizione della mappa più fluida quando usi goToPoint */
+.esri-view-surface {
+    transition: filter 0.3s ease;
+}
+
+/* Assicurati che il contenitore della mappa sia visibile */
+.map-view {
+    width: 100%;
+    /* Su mobile diamo un'altezza fissa o una parte dello schermo */
+    height: 50vh;
+    min-height: 300px;
+    background-color: #e5e7eb;
+    /* Grigio chiaro di fallback */
+}
+
+/* Su desktop (schermi medi e grandi) torna a occupare tutto lo spazio */
+@media (min-width: 768px) {
+    .map-view {
+        height: 100%;
+    }
+}
+
+/* Importante: ArcGIS ha bisogno che tutti i genitori abbiano altezza */
+#mapViewNode {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+}
