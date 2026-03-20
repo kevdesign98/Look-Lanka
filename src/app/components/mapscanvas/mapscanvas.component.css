@@ -1,99 +1,157 @@
 /* Assicurati che questo import sia anche in styles.css per sicurezza */
 @import "https://js.arcgis.com/5.0/@arcgis/core/assets/esri/themes/light/main.css";
 
-
-/* Nascondiamo i widget ingombranti su mobile per pulire la visuale */
-@media (max-width: 768px) {
-
-    :host ::ng-deep .esri-ui-top-left,
-    :host ::ng-deep .esri-ui-bottom-right {
-        display: none !important;
-    }
-
-    /* Arrotondamento della card meno estremo su schermi piccoli */
-    .rounded-none {
-        border-radius: 0 !important;
-    }
-}
-
-/* Custom scrollbar per non rovinare il design glassmorphic */
-.custom-scrollbar::-webkit-scrollbar {
-    width: 3px;
-}
-
-.custom-scrollbar::-webkit-scrollbar-thumb {
-    background: rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-}
-
-#mapViewNode {
-    outline: none !important;
-}
-
-.animate-in {
-    animation: slideIn 0.3s ease-out forwards;
-}
-
-@keyframes slideIn {
-    from {
-        opacity: 0;
-        transform: translateY(10px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.no-scrollbar::-webkit-scrollbar {
-    display: none;
-}
-
-.no-scrollbar {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-}
-
-/* Arrotonda le immagini dentro i popup di ArcGIS */
-.esri-popup__content img {
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    margin-top: 10px;
-}
-
-/* Stile per il testo del popup */
-.esri-popup__header-title {
-    font-weight: bold !important;
-    color: #0f172a !important;
-}
-
-/* Rende la transizione della mappa più fluida quando usi goToPoint */
-.esri-view-surface {
-    transition: filter 0.3s ease;
-}
-
-/* Assicurati che il contenitore della mappa sia visibile */
-.map-view {
+:host {
+    display: block;
     width: 100%;
-    /* Su mobile diamo un'altezza fissa o una parte dello schermo */
-    height: 50vh;
-    min-height: 300px;
-    background-color: #e5e7eb;
-    /* Grigio chiaro di fallback */
 }
 
-/* Su desktop (schermi medi e grandi) torna a occupare tutto lo spazio */
+/* --- LAYOUT GENERALE --- */
+.main-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
 @media (min-width: 768px) {
-    .map-view {
-        height: 100%;
+    .main-container {
+        flex-direction: row;
+        /* Rimosso height: 100vh per permettere lo scroll di pagina */
+        min-height: calc(100vh - 64px);
+        position: relative;
+    }
+
+    .map-container {
+        /* La mappa diventa sticky: resta fissa mentre la dashboard scorre */
+        position: sticky;
+        top: 64px;
+        /* Altezza navbar */
+        height: calc(100vh - 64px);
+        flex: 1;
+        z-index: 1;
+    }
+
+    .dashboard-container {
+        width: 550px;
+        /* Rimosso height fissa e overflow-y: auto per togliere la scrollbar interna */
+        min-height: 100%;
+        overflow: visible;
+        z-index: 20;
+        box-shadow: -10px 0 30px rgba(0, 0, 0, 0.05);
+        display: flex;
+        flex-direction: column;
+        background: white;
+    }
+
+    /* Nascondiamo la scrollbar interna su desktop se ancora presente per via di classi legacy */
+    .custom-scrollbar::-webkit-scrollbar {
+        display: none;
     }
 }
 
-/* Importante: ArcGIS ha bisogno che tutti i genitori abbiano altezza */
-#mapViewNode {
-    padding: 0;
-    margin: 0;
+/* --- FIX MOBILE (AIRBNB STYLE) - RESTA INVARIATO --- */
+@media (max-width: 767px) {
+    .main-container {
+        display: block;
+        position: relative;
+    }
+
+    .map-container {
+        position: sticky;
+        top: 0;
+        height: 45vh;
+        width: 100%;
+        z-index: 1;
+    }
+
+    .dashboard-container {
+        position: relative;
+        z-index: 10;
+        background: white;
+        min-height: 100vh;
+        border-top-left-radius: 28px;
+        border-top-right-radius: 28px;
+        box-shadow: 0 -15px 30px rgba(0, 0, 0, 0.1);
+        margin-top: -30px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .drag-handle {
+        width: 40px;
+        height: 5px;
+        background: #cbd5e1;
+        border-radius: 10px;
+        margin: 12px auto;
+        display: block;
+    }
+}
+
+/* --- AZIONE FOOTER --- */
+.action-footer {
+    position: sticky;
+    bottom: 0;
+    left: 0;
     width: 100%;
-    height: 100%;
+    background: white;
+    border-top: 1px solid #f1f5f9;
+    padding: 1.5rem;
+    z-index: 40;
+}
+
+@media (min-width: 768px) {
+    .action-footer {
+        /* Su desktop segue il flusso della dashboard fluida */
+        position: relative;
+        margin-top: auto;
+        padding: 2.5rem;
+        box-shadow: none;
+        background: white;
+    }
+}
+
+/* --- BOTTONE RIMUOVI --- */
+.ll-delete-btn {
+    flex-shrink: 0;
+    width: 2.25rem;
+    height: 2.25rem;
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.07);
+    border-radius: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+}
+
+.ll-delete-btn:hover {
+    background: #f43f5e;
+    border-color: #f43f5e;
+    box-shadow: 0 4px 14px rgba(244, 63, 94, 0.3);
+    transform: rotate(90deg) scale(1.1);
+}
+
+.ll-delete-icon {
+    width: 1.25rem;
+    height: 1.25rem;
+    color: #94a3b8;
+    transition: color 0.25s ease;
+}
+
+.ll-delete-btn:hover .ll-delete-icon,
+.ll-delete-btn:hover svg {
+    color: #fff;
+}
+
+/* Utility Spacing Desktop */
+@media (min-width: 768px) {
+    .p-6 {
+        padding: 2.5rem !important;
+    }
+
+    section {
+        margin-bottom: 3rem;
+    }
 }

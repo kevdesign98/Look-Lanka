@@ -1,114 +1,128 @@
 <app-navbar />
 
-<div class="flex flex-col md:flex-row w-full h-[calc(100vh-80px)] bg-slate-100 overflow-hidden">
+<div class="main-container bg-white">
 
-    <div class="w-full h-1/2 md:h-full md:flex-1 relative border-b md:border-b-0 md:border-r border-slate-200">
-        <div #mapViewNode id="mapViewNode" class="w-full h-full"></div>
+    <div class="map-container">
+        <div #mapViewNode class="w-full h-full"></div>
+    </div>
+
+    <div class="dashboard-container">
+        <div class="drag-handle md:hidden"></div>
+
+        <div class="px-6 py-4 md:px-8 md:py-6 border-b border-slate-50 flex-shrink-0 bg-white">
+            <h2 class="text-xl md:text-2xl font-black text-slate-800 italic tracking-tight">
+                Look<span class="text-emerald-600">Lanka</span>
+            </h2>
+            <p class="text-[10px] text-slate-400 font-bold uppercase tracking-[0.15em] mt-1">Explore verified spots</p>
+        </div>
 
         <div
-            class="absolute bottom-6 left-6 bg-white/80 backdrop-blur-md p-3 rounded-2xl shadow-lg border border-white hidden md:block">
-            <div class="flex gap-4">
-                <div class="flex items-center gap-1.5 text-[9px] font-bold uppercase text-slate-600">
-                    <span class="w-2 h-2 rounded-full bg-[#10b981]"></span> Culture
-                </div>
-                <div class="flex items-center gap-1.5 text-[9px] font-bold uppercase text-slate-600">
-                    <span class="w-2 h-2 rounded-full bg-[#f97316]"></span> Food
-                </div>
-                <div class="flex items-center gap-1.5 text-[9px] font-bold uppercase text-slate-600">
-                    <span class="w-2 h-2 rounded-full bg-[#006dfa]"></span> Trip
-                </div>
-            </div>
-        </div>
-    </div>
+            class="sticky top-0 bg-white/95 backdrop-blur-sm z-30 flex justify-around py-4 md:py-6 border-b border-slate-50 flex-shrink-0">
+            @for (cat of ['beaches', 'hotels', 'food', 'culture']; track cat) {
+            <button (click)="setCategory(cat)"
+                class="flex flex-col items-center gap-2 transition-all px-4 relative group"
+                [ngClass]="activeCategory() === cat ? 'text-emerald-600 scale-105' : 'text-slate-400 opacity-60 hover:opacity-100'">
+                <span class="text-xl md:text-2xl">{{ cat === 'beaches' ? '🏖️' : cat === 'hotels' ? '🏨' : cat ===
+                    'food' ? '🍲' : '🛕' }}</span>
+                <span class="text-[9px] md:text-[10px] font-black uppercase tracking-wider">{{ cat }}</span>
 
-
-    <div class="w-full h-1/2 md:h-full md:w-[400px] lg:w-[450px] overflow-y-auto bg-white">
-        <div class="p-6 border-b border-slate-50 bg-slate-50/50">
-            <h2 class="text-2xl font-bold text-slate-800 italic">Look <span class="text-emerald-600">Lanka</span></h2>
-            <p class="text-slate-400 text-[11px] uppercase tracking-widest font-bold mt-1">Honest Travel Planner</p>
-        </div>
-
-        <div class="py-6 border-b border-slate-50">
-            <div class="px-6 mb-4 flex items-center justify-between">
-                <h3 class="font-bold text-slate-700 text-sm italic">Featured <span
-                        class="text-emerald-600">Beaches</span></h3>
-            </div>
-
-            <p-carousel [value]="honestGuide.beaches" [numVisible]="2" [numScroll]="1" [circular]="true"
-                [responsiveOptions]="[{breakpoint: '1024px', numVisible: 1, numScroll: 1}]" [autoplayInterval]="4000"
-                indicatorStyleClass="hidden">
-
-                <ng-template let-beach #item>
-                    <div (click)="goToPoint(beach.lat, beach.lng)"
-                        class="mx-2 cursor-pointer group relative rounded-[20px] overflow-hidden shadow-sm border border-slate-100">
-                        <div class="relative h-32">
-                            <img [src]="beach.img"
-                                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
-                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent">
-                            </div>
-                            <div class="absolute bottom-2 left-3">
-                                <span class="text-white font-bold text-[11px]">{{beach.name}}</span>
-                            </div>
-                        </div>
-                    </div>
-                </ng-template>
-            </p-carousel>
-        </div>
-
-        <div class="p-6">
-            <div class="flex items-center justify-between mb-6">
-                <h3 class="text-lg font-bold text-slate-800 italic">Plan Your Trip</h3>
-                <span class="bg-emerald-100 text-emerald-700 text-[10px] px-2 py-1 rounded-full font-bold">
-                    {{ selectedLocations().length }} STAGES
-                </span>
-            </div>
-
-            <div class="space-y-3">
-                @for (loc of selectedLocations(); track loc.id) {
+                @if (activeCategory() === cat) {
                 <div
-                    class="group flex items-center justify-between p-4 bg-slate-50 hover:bg-white rounded-2xl border border-slate-100 transition-all shadow-sm hover:shadow-md">
-                    <div class="flex items-center gap-3 overflow-hidden">
-                        <div
-                            class="flex-shrink-0 w-8 h-8 rounded-full bg-white flex items-center justify-center text-[10px] font-bold text-emerald-600 border border-emerald-100">
-                            {{$index + 1}}
-                        </div>
-                        <div class="flex flex-col truncate">
-                            <span class="text-xs font-bold text-slate-700 truncate">{{ loc.name }}</span>
-                            <span class="text-[9px] text-slate-400">Ready to explore</span>
-                        </div>
-                    </div>
-                    <button (click)="removeFromTrip(loc.id)"
-                        class="w-8 h-8 flex items-center justify-center rounded-xl bg-red-50 text-red-400 hover:bg-red-500 hover:text-white transition-all">
-                        <i class="pi pi-trash text-xs"></i>
-                    </button>
-                </div>
-                } @empty {
-                <div class="py-12 text-center border-2 border-dashed border-slate-100 rounded-[32px] bg-slate-50/30">
-                    <div
-                        class="w-12 h-12 bg-white rounded-full flex items-center justify-center mx-auto mb-3 shadow-sm">
-                        <i class="pi pi-map-marker text-emerald-500"></i>
-                    </div>
-                    <p class="text-[11px] text-slate-400 font-bold uppercase tracking-wider">
-                        Select locations<br>on the map
-                    </p>
+                    class="absolute -bottom-[1px] left-0 w-full h-0.5 bg-emerald-500 rounded-t-full shadow-[0_-2px_10px_rgba(16,185,129,0.4)]">
                 </div>
                 }
-            </div>
-
-            @if (selectedLocations().length > 0) {
-            <div class="mt-8 space-y-3">
-                <button (click)="confirmTrip()"
-                    class="w-full py-4 bg-emerald-600 hover:bg-emerald-700 text-white text-base font-bold rounded-2xl transition-all shadow-lg shadow-emerald-200 flex items-center justify-center gap-2 group">
-                    <i class="pi pi-check-circle group-hover:scale-110 transition-transform"></i>
-                    Save Itinerary
-                </button>
-                <p class="text-[10px] text-slate-400 text-center px-4">
-                    Our guide includes honest pricing and scam alerts for each selected spot.
-                </p>
-            </div>
+            </button>
             }
         </div>
-    </div>
 
+        <div class="flex-1 p-6 md:p-10 space-y-10 overflow-y-auto md:overflow-y-visible custom-scrollbar">
+
+            <section class="w-full">
+                <div class="flex items-center gap-3 mb-6">
+                    <h3 class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Featured {{
+                        activeCategory() }}</h3>
+                    <div class="h-[1px] flex-1 bg-slate-100"></div>
+                </div>
+
+                <p-carousel [value]="currentItems()" [numVisible]="1" [numScroll]="1" [circular]="true">
+                    <ng-template let-item pTemplate="item">
+                        <div (click)="goToPoint(item.lat, item.lng)" class="cursor-pointer px-1">
+                            <div
+                                class="relative aspect-video rounded-[2rem] overflow-hidden shadow-xl border border-slate-100 group">
+                                <img [src]="item.img"
+                                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                                <div
+                                    class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-6 md:p-8 text-white">
+                                    <h4 class="font-black text-xl md:text-2xl leading-tight drop-shadow-md">
+                                        {{item.name}}</h4>
+                                </div>
+                            </div>
+
+                            <div
+                                class="mt-5 p-5 bg-rose-50/50 rounded-2xl border border-rose-100/50 shadow-sm flex gap-4 backdrop-blur-sm">
+                                <div
+                                    class="flex-shrink-0 w-10 h-10 bg-rose-100 rounded-full flex items-center justify-center text-xl">
+                                    ⚠️</div>
+                                <div>
+                                    <p class="text-[10px] text-rose-600 font-black uppercase mb-1 tracking-widest">
+                                        Honest Alert</p>
+                                    <p class="text-xs md:text-sm text-rose-900 leading-relaxed italic opacity-80">
+                                        "{{item.scam}}"</p>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-template>
+                </p-carousel>
+            </section>
+
+            <section class="pb-10">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-lg md:text-xl font-black text-slate-800 italic uppercase tracking-tight">Your Route
+                    </h3>
+                    <span class="bg-slate-900 text-white text-[10px] px-3 py-1 rounded-full font-bold shadow-lg">
+                        {{ selectedLocations().length }} STOPS
+                    </span>
+                </div>
+
+                <div class="space-y-4">
+                    @for (loc of selectedLocations(); track loc.id) {
+                    <div
+                        class="flex items-center justify-between p-5 bg-slate-50/50 rounded-[1.25rem] border border-slate-100 hover:border-emerald-200 hover:bg-white hover:shadow-md transition-all duration-300 group">
+                        <div class="flex items-center gap-3">
+                            <div class="w-2 h-2 rounded-full bg-emerald-500"></div>
+                            <span class="text-sm md:text-base font-bold text-slate-700 truncate tracking-tight">{{
+                                loc.name }}</span>
+                        </div>
+
+                        <button (click)="removeFromTrip(loc.id)"
+                            class="ll-delete-btn text-slate-300 hover:text-red-500 transition-all transform hover:scale-125 hover:rotate-90">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5"
+                                stroke="currentColor" class="w-5 h-5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    </div>
+                    } @empty {
+                    <div
+                        class="text-center py-16 border-2 border-dashed border-slate-100 rounded-[2rem] bg-slate-50/30">
+                        <p class="text-xs text-slate-400 font-bold uppercase tracking-[0.2em] leading-loose">
+                            Tap map pins<br><span class="text-[10px] opacity-60">to plan your itinerary</span>
+                        </p>
+                    </div>
+                    }
+                </div>
+            </section>
+        </div>
+
+        @if (selectedLocations().length > 0) {
+        <div class="action-footer flex-shrink-0 p-6 md:p-8 bg-white md:bg-transparent">
+            <button (click)="confirmTrip()"
+                class="w-full py-5 bg-emerald-600 hover:bg-emerald-700 text-white font-black rounded-[1.25rem] shadow-xl hover:shadow-emerald-200 uppercase text-[11px] tracking-[0.2em] active:scale-95 transition-all duration-300">
+                Confirm Itinerary
+            </button>
+        </div>
+        }
+    </div>
 </div>
+
 <app-footer />
