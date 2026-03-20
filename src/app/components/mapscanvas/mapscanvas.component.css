@@ -1,4 +1,3 @@
-/* Assicurati che questo import sia anche in styles.css per sicurezza */
 @import "https://js.arcgis.com/5.0/@arcgis/core/assets/esri/themes/light/main.css";
 
 :host {
@@ -6,7 +5,6 @@
     width: 100%;
 }
 
-/* --- LAYOUT GENERALE --- */
 .main-container {
     display: flex;
     flex-direction: column;
@@ -16,40 +14,47 @@
 @media (min-width: 768px) {
     .main-container {
         flex-direction: row;
-        /* Rimosso height: 100vh per permettere lo scroll di pagina */
         min-height: calc(100vh - 64px);
         position: relative;
+        background-color: #f8fafc;
+        /* Sfondo esterno alle card */
     }
 
     .map-container {
-        /* La mappa diventa sticky: resta fissa mentre la dashboard scorre */
         position: sticky;
         top: 64px;
-        /* Altezza navbar */
         height: calc(100vh - 64px);
         flex: 1;
         z-index: 1;
+        /* EFFETTO CARD: Padding per staccare la mappa dai bordi */
+        padding: 24px;
+    }
+
+    .map-card-element {
+        border-radius: 24px;
+        /* Angoli arrotondati come Airbnb */
+        overflow: hidden;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+        border: 1px solid rgba(226, 232, 240, 0.8);
     }
 
     .dashboard-container {
         width: 550px;
-        /* Rimosso height fissa e overflow-y: auto per togliere la scrollbar interna */
         min-height: 100%;
         overflow: visible;
         z-index: 20;
-        box-shadow: -10px 0 30px rgba(0, 0, 0, 0.05);
+        box-shadow: -10px 0 30px rgba(0, 0, 0, 0.03);
         display: flex;
         flex-direction: column;
         background: white;
     }
 
-    /* Nascondiamo la scrollbar interna su desktop se ancora presente per via di classi legacy */
     .custom-scrollbar::-webkit-scrollbar {
         display: none;
     }
 }
 
-/* --- FIX MOBILE (AIRBNB STYLE) - RESTA INVARIATO --- */
+/* --- MOBILE --- */
 @media (max-width: 767px) {
     .main-container {
         display: block;
@@ -73,8 +78,6 @@
         border-top-right-radius: 28px;
         box-shadow: 0 -15px 30px rgba(0, 0, 0, 0.1);
         margin-top: -30px;
-        display: flex;
-        flex-direction: column;
     }
 
     .drag-handle {
@@ -101,12 +104,11 @@
 
 @media (min-width: 768px) {
     .action-footer {
-        /* Su desktop segue il flusso della dashboard fluida */
         position: relative;
         margin-top: auto;
         padding: 2.5rem;
         box-shadow: none;
-        background: white;
+        border-top: 1px solid #f8fafc;
     }
 }
 
@@ -124,28 +126,23 @@
     cursor: pointer;
     transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+    color: #94a3b8;
 }
 
 .ll-delete-btn:hover {
     background: #f43f5e;
     border-color: #f43f5e;
+    color: #fff;
     box-shadow: 0 4px 14px rgba(244, 63, 94, 0.3);
     transform: rotate(90deg) scale(1.1);
 }
 
-.ll-delete-icon {
-    width: 1.25rem;
-    height: 1.25rem;
-    color: #94a3b8;
-    transition: color 0.25s ease;
+
+/* Fix ArcGIS corners */
+::ng-deep .esri-view-surface {
+    border-radius: 24px !important;
 }
 
-.ll-delete-btn:hover .ll-delete-icon,
-.ll-delete-btn:hover svg {
-    color: #fff;
-}
-
-/* Utility Spacing Desktop */
 @media (min-width: 768px) {
     .p-6 {
         padding: 2.5rem !important;
