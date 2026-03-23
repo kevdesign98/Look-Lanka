@@ -17,7 +17,7 @@
 
         <div
             class="sticky top-0 bg-white/95 backdrop-blur-sm z-30 flex justify-around py-4 md:py-6 border-b border-slate-50 flex-shrink-0">
-            @for (cat of ['beaches', 'hotels', 'food', 'culture']; track cat) {
+            @for (cat of ['beaches', 'hotels', 'culture','safari' ,'food']; track cat) {
             <button (click)="setCategory(cat)"
                 class="flex flex-col items-center gap-2 transition-all px-4 relative group"
                 [ngClass]="activeCategory() === cat ? 'text-emerald-600 scale-105' : 'text-slate-400 opacity-60 hover:opacity-100'">
