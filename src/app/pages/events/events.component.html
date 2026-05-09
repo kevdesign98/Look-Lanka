@@ -1,10 +1,6 @@
 <app-navbar />
 
 <main class="ll-events-main">
-
-    <!-- ═══════════════════════════════════════════════
-       HERO
-  ═══════════════════════════════════════════════ -->
     <section class="ll-events-hero">
         <div class="ll-hero-bg">
             <img src="https://images.unsplash.com/photo-1540202404-a2f29036bb57?q=80&w=2000" class="ll-hero-bg-img"
@@ -22,15 +18,11 @@
             <p class="ll-hero-sub">Authentic festivals, spiritual celebrations and unforgettable nights.</p>
         </div>
 
-        <!-- Scroll hint -->
         <div class="ll-scroll-hint">
             <div class="ll-scroll-dot"></div>
         </div>
     </section>
 
-    <!-- ═══════════════════════════════════════════════
-       EVENT CARDS GRID
-  ═══════════════════════════════════════════════ -->
     <section class="ll-events-grid-section">
         <div class="ll-events-grid">
             @for (event of events(); track event.title; let i = $index) {
@@ -38,7 +30,6 @@
                 <div class="ll-event-img-wrap">
                     <img [src]="event.image" [alt]="event.title" class="ll-event-img" />
 
-                    <!-- Gradient overlay -->
                     <div class="ll-event-overlay">
                         <span class="ll-event-tag">{{ event.tag }}</span>
                         <h2 class="ll-event-title">{{ event.title }}</h2>
@@ -52,13 +43,10 @@
                                 {{ event.location }}
                             </span>
                         </div>
-                        <!-- Description revealed on hover -->
                         <div class="ll-event-desc-wrap">
                             <p class="ll-event-desc">{{ event.description }}</p>
                         </div>
                     </div>
-
-                    <!-- Corner number -->
                     <div class="ll-event-number">{{ (i + 1).toString().padStart(2, '0') }}</div>
                 </div>
             </div>
@@ -66,9 +54,6 @@
         </div>
     </section>
 
-    <!-- ═══════════════════════════════════════════════
-       NEWSLETTER CTA
-  ═══════════════════════════════════════════════ -->
     <section class="ll-newsletter-section">
         <div class="ll-newsletter-box">
             <div class="ll-newsletter-orb ll-newsletter-orb-1"></div>
