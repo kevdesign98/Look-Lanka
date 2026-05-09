@@ -2,6 +2,7 @@ import { Component, OnInit, inject, PLATFORM_ID } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { isPlatformBrowser } from '@angular/common';
 import Lenis from 'lenis';
+import { inject as injectAnalytics } from '@vercel/analytics';
 
 @Component({
   selector: 'app-root',
@@ -15,6 +16,11 @@ export class AppComponent implements OnInit {
   private platformId = inject(PLATFORM_ID);
 
   ngOnInit() {
+    // Initialize Vercel Analytics
+    if (isPlatformBrowser(this.platformId)) {
+      injectAnalytics();
+    }
+
     // Lenis deve girare solo nel browser (importante se usi SSR)
     if (isPlatformBrowser(this.platformId)) {
       const lenis = new Lenis({
