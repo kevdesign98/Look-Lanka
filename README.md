@@ -6,6 +6,7 @@ Look Lanka è un'applicazione web moderna sviluppata con **Angular** e TailwindC
 
 ## 🚀 Funzionalità principali
 - **Esplorazione Destinazioni**: Visualizzazione delle migliori località turistiche.
+- **Login alla dashboard**: Esplora la mappa interattiva e scegli dove andare. 
 - **Interfaccia Responsiva**: Ottimizzata per dispositivi mobile e desktop.
 - **Alte Prestazioni**: Ottimizzazione dei bundle per un caricamento rapido.
 
