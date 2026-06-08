@@ -225,31 +225,46 @@ export class MapscanvasComponent implements OnInit, OnDestroy {
     data.forEach((item: any) => {
       const point = new Point({ longitude: item.lng, latitude: item.lat });
 
-      // Goccia bianca con bordo colorato
-      const pin = new Graphic({
+      // 1. PIN DROP BLU (La forma a goccia)
+      // Path SVG per un pin drop standard, centrato
+      const pinPath = "M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z";
+      const pinDrop = new Graphic({
         geometry: point,
         symbol: {
           type: "simple-marker",
-          path: "M12,2C8.13,2,5,5.13,5,9c0,5.25,7,13,7,13s7-7.75,7-13C19,5.13,15.87,2,12,2z",
-          color: "blue",
-          outline: { color: item.color, width: 2 },
-          size: "46px",
-          yoffset: "23px"
+          style: "path",
+          path: pinPath,
+          color: "#0055ff", // Il blu brillante dei pin
+          size: "46px",      // Dimensione totale del pin drop
+          xoffset: 0,
+          yoffset: "23px",  // Offset verticale per ancorare la punta
+          outline: {
+            color: "#ffffff",
+            width: 1
+          }
         } as any
       });
 
-      // Foto dentro la goccia
-      const photo = new Graphic({
+      // 2. ICONA PALMA BIANCA (Il design SVG richiesto, posizionato dentro il pin drop)
+      // Path SVG del design palma/duna/onde
+      const palmDesignPath = "M 10 2 C 10 2 10 4.14 8.7 6.33 C 8.61 6.47 8.54 6.51 8.5 6.5 C 8.46 6.49 8.41 6.42 8.4 6.3 L 8.4 6.3 C 8.4 6.3 8.12 5.51 7.6 5.51 L 7.6 5.51 C 6.94 5.51 6.52 6.3 6.52 6.3 C 6.52 6.3 6.64 8.13 8.35 9.77 L 8.35 9.77 C 8.35 9.77 9.88 10.74 11.5 10.74 C 11.5 10.74 12.01 10.74 12.01 10.74 L 12.01 10.74 C 13.63 10.74 15.16 9.77 15.16 9.77 C 16.87 8.13 16.99 6.3 16.99 6.3 C 16.99 6.3 16.57 5.51 15.91 5.51 C 15.39 5.51 15.11 6.3 15.11 6.3 C 15.1 6.42 15.05 6.49 15.01 6.5 C 14.97 6.51 14.9 6.47 14.81 6.33 C 13.51 4.14 13.51 2 13.51 2 C 13.51 2 13.2 2 12.01 2 L 12.01 2 Z M 10.16 2.37 C 10.16 2.37 10.5 2.37 11.77 2.37 C 11.77 2.37 11.77 2.37 11.77 2.37 C 11.77 2.37 11.77 3.96 12.92 5.92 C 12.96 5.98 12.96 6.03 12.93 6.04 C 12.9 6.05 12.86 6.01 12.84 5.95 L 12.84 5.95 C 12.84 5.95 12.65 5.17 12.01 5.17 C 11.37 5.17 11.18 5.95 11.18 5.95 C 11.16 6.01 11.12 6.05 11.09 6.04 C 11.06 6.03 11.06 5.98 11.1 5.92 C 12.25 3.96 12.25 2.37 12.25 2.37 Z M 2 20.32 L 22 20.32 L 22 18.32 L 19 18.32 C 17.5 18.32 16.8 19 15 19 C 13.2 19 12.5 18.32 11 18.32 L 9 18.32 C 7.5 18.32 6.8 19 5 19 C 3.2 19 2.5 18.32 1 18.32 L 1 18.32 Z";
+      const palmIcon = new Graphic({
         geometry: point,
         symbol: {
-          type: "picture-marker",
-          url: item.img,
-          width: "32px", height: "32px", yoffset: "29px"
+          type: "simple-marker",
+          style: "path",
+          path: palmDesignPath,
+          color: "#ffffff",  // Icona bianca per farla risaltare sul blu
+          size: "24px",      // Scalata per l'interno del drop
+          xoffset: 0,
+          yoffset: "29px",  // Offset leggermente diverso per centrarla verticalmente
+          outline: null      // Icona interna pulita
         } as any,
-        attributes: { ...item, IsStatic: true }
+        attributes: { ...item, IsStatic: true } // Manteniamo l'attributo per l'hitTest
       });
 
-      this.view.graphics.addMany([pin, photo]);
+      // Li aggiungiamo alla mappa (il drop va prima per stare sotto)
+      this.view.graphics.addMany([pinDrop, palmIcon]);
     });
   }
 
